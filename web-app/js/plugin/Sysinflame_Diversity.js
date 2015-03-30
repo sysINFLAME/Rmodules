@@ -4,8 +4,8 @@
  * - Clear out all gobal variables and reset them to blank.
  */
 function loadSysinflame_diversityView(){
-	sysinflame_Diversity.clear_high_dimensional_input('divCategoryVariable');
-	sysinflame_Diversity.register_drag_drop();
+	sysinflame_DiversityView.clear_high_dimensional_input('divCategoryVariable');
+	sysinflame_DiversityView.register_drag_drop();
 }
 
 // constructor
