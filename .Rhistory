@@ -1,0 +1,3 @@
+library(Rserve)
+Rserve()
+q()
