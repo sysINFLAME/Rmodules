@@ -33,7 +33,7 @@ class Phenomap extends HighDimensionalOnlyJob {
 
     @Override
     protected getForwardPath() {
-        "/RPhenomap/phenommapOut?jobName=${name}"
+        "/RPhenomap/phenomapOut?jobName=${name}"
     }
 
 }
