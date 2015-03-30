@@ -20,21 +20,26 @@ Sysinflame_DiversityView.prototype = new RmodulesView();
 Sysinflame_DiversityView.prototype.constructor = Sysinflame_DiversityView;
 
 Sysinflame_DiversityView.prototype.submit_job = function (form) {
-    var variablesConceptCode = readConceptVariables("divCategoryVariable");
-
+    var variablesMetabolomCode = readConceptVariables("divCategoryVariable");
+    var variableCensorEleCode = readConceptVariables("divDataNode");
+    
+    var metabolomEle = Ext.get("divCategoryVariable");
+    var censorEle = Ext.get("divDataNode");
+    
+    
+    
     var formParams = {
         jobType:'sysinflame_diversity',
-        variablesConceptPaths:variablesConceptCode
-//        correlationBy:form.correlationBy.value,
+        variablesMetabolomConceptPaths:variablesMetabolomCode,
+        variablesCensorConceptPaths:variableCensorEleCode;
+        //        correlationBy:form.correlationBy.value,
   //      correlationType:form.correlationType.value
     };
 
-    var variableEle = Ext.get("divCategoryVariable");
-
     //If the list of concepts we are running the analysis on is empty, alert the user.
-    if(variablesConceptCode == '' || (variableEle.dom.childNodes.length < 2))
+    if(censorEle.dom.childNodes.length > 1 || metabolomEle.dom.childNodes.length > 1)
     {
-        Ext.Msg.alert('Missing input!', 'Please drag at least two concepts into the variables box.');
+        Ext.Msg.alert('Too much input!', 'Please drag only one censor concepts into the variables box.');
         return;
     }
 
