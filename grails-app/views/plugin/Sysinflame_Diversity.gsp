@@ -14,13 +14,13 @@
                        
 
 <form id="analysisForm">
-        <div class="three-layout-container ">
+        <div class="container ">
 
 
             %{-- ************************************************************************************************* --}%
             %{-- left inputs --}%
             %{-- ************************************************************************************************* --}%
-            <div class="three-layout-left">
+            <div class="left">
                 <fieldset class="inputFields">
                     <div class="highDimContainer">
                         <h3>Metabolom</h3>
@@ -45,13 +45,13 @@
             %{-- ************************************************************************************************* --}%
             %{-- middle inputs --}%
             %{-- ************************************************************************************************* --}%
-            <div class="three-layout-middle">
+            <div class="right">
                 <fieldset class="inputFields">
                     <h3>Variable</h3>
                     <div class="divInputLabel">Select the appropriate censoring variable and drag it into the box. For
                     example, "Survival (Censor) -> Yes".
                     This variable is not required.	</div>
-                    <div id='divCensoringVariable' class="queryGroupIncludeLong divInputBox"></div>
+                    <div id='divDataNode' class="queryGroupIncludeLong divInputBox"></div>
                     <div class="highDimBtns">
                         <button type="button" onclick="sysinflame_DiversityView.clear_high_dimensional_input('divCensoringVariable')">Clear</button>
                     </div>
@@ -59,13 +59,10 @@
             </div>
         </div>
 
-        %{-- ************************************************************************************************* --}%
+ %{-- ************************************************************************************************* --}%
         %{-- Tool Bar --}%
         %{-- ************************************************************************************************* --}%
         <fieldset class="toolFields">
-            <div class="chkpair">
-                <g:checkBox name="isBinning" onclick="sysinflame_DiversityView.toggle_binning();"/> Enable binning
-            </div>
             <input type="button" value="Run" onClick="sysinflame_DiversityView.submit_job(this.form);" class="runAnalysisBtn">
         </fieldset>
     </form>
