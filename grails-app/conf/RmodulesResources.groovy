@@ -1,4 +1,8 @@
 modules = {
+    
+    phenomap {
+        resource url:"/js/plugin/Phenomap.js"
+    }
     heatmap {
         resource url:"/js/plugin/Heatmap.js"
     }
