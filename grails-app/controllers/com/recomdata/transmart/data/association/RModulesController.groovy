@@ -135,8 +135,11 @@ class RModulesController {
             case 'groupTestRNASeq':
                 jsonResult = createJob(params, RNASeqGroupTest)
                 break
- 	    case 'phenomap':
+            case 'phenomap':
                 jsonResult = createJob(params, Phenomap)
+                break
+            case 'sysinflame_diversity':
+                jsonResult = createJob(params, Sysinflame_Diversity)
                 break
             default:
                 jsonResult = RModulesService.scheduleJob(
