@@ -31,7 +31,7 @@ Sysinflame_DiversityView.prototype.submit_job = function (form) {
     var formParams = {
         jobType:'sysinflame_diversity',
         variablesMetabolomConceptPaths:variablesMetabolomCode,
-        variablesCensorConceptPaths:variableCensorEleCode;
+        variablesCensorConceptPaths:variableCensorEleCode
         //        correlationBy:form.correlationBy.value,
   //      correlationType:form.correlationType.value
     };
@@ -42,6 +42,12 @@ Sysinflame_DiversityView.prototype.submit_job = function (form) {
         Ext.Msg.alert('Too much input!', 'Please drag only one censor concepts into the variables box.');
         return;
     }
+    if(censorEle.dom.childNodes.length < 1 || metabolomEle.dom.childNodes.length < 1)
+    {
+        Ext.Msg.alert('Missing input!', 'Please drag one censor concepts into each variable box.');
+        return;
+    }
+
 
     submitJob(formParams);
 }

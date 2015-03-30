@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 
 @Component
 @Scope('job')
-class Phenomap extends HighDimensionalOnlyJob {
+class Sysinflame_Diversity extends HighDimensionalOnlyJob {
 
     @Override
     protected Step createDumpHighDimensionDataStep(Closure resultsHolder) {
@@ -33,7 +33,7 @@ class Phenomap extends HighDimensionalOnlyJob {
 
     @Override
     protected getForwardPath() {
-        "/Sysinflame_Diversity/sysinflame_diversityOut?jobName=${name}"
+        "/sysinflame_diversity/sysinflame_diversityOut?jobName=${name}"
     }
 
 }

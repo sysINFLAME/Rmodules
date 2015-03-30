@@ -16,7 +16,7 @@
 
 package com.recomdata.transmart.data.association
 
-class Sysinflame_Diversity {
+class Sysinflame_DiversityController {
 
 
   def RModulesOutputRenderService
