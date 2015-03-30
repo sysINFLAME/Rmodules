@@ -17,7 +17,7 @@ var Sysinflame_DiversityView = function () {
 Sysinflame_DiversityView.prototype = new RmodulesView();
 
 // correct the pointer
-Sysinflame_DiversityView.prototype.constructor = PhenoMapView;
+Sysinflame_DiversityView.prototype.constructor = Sysinflame_DiversityView;
 
 Sysinflame_DiversityView.prototype.submit_job = function (form) {
     var variablesConceptCode = readConceptVariables("divCategoryVariable");
