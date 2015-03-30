@@ -43,7 +43,7 @@
             </div>
 
             %{-- ************************************************************************************************* --}%
-            %{-- middle inputs --}%
+            %{-- right inputs --}%
             %{-- ************************************************************************************************* --}%
             <div class="right">
                 <fieldset class="inputFields">
@@ -53,7 +53,7 @@
                     This variable is not required.	</div>
                     <div id='divDataNode' class="queryGroupIncludeLong divInputBox"></div>
                     <div class="highDimBtns">
-                        <button type="button" onclick="sysinflame_DiversityView.clear_high_dimensional_input('divCensoringVariable')">Clear</button>
+                        <button type="button" onclick="sysinflame_DiversityView.clear_high_dimensional_input('divDataNode')">Clear</button>
                     </div>
                 </fieldset>
             </div>
