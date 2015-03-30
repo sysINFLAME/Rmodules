@@ -21,7 +21,7 @@ class Sysinflame_Diversity extends HighDimensionalOnlyJob {
     protected List<String> getRStatements() {
         String source = 'source(\'$pluginDirectory/Sysinflame/Diversity/DiversityLoader.R\')'
 
-        String createHeatmap = '''Sysinflame_Diversity.loader(
+        String createHeatmap = '''Diversity.loader(
                             input.filename = '$inputFileName',
                             aggregate.probes = '$divIndependentVariableprobesAggregation' == 'true'
                             ${ txtMaxDrawNumber ? ", maxDrawNumber  = as.integer('$txtMaxDrawNumber')" : ''},
@@ -33,7 +33,8 @@ class Sysinflame_Diversity extends HighDimensionalOnlyJob {
 
     @Override
     protected getForwardPath() {
-        "/sysinflame_diversity/sysinflame_diversityOut?jobName=${name}"
+
+  "/sysinflame_diversity/sysinflame_diversityOut?jobName=${name}"
     }
 
 }
