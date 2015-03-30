@@ -136,10 +136,10 @@ class RModulesController {
                 jsonResult = createJob(params, RNASeqGroupTest)
                 break
             case 'phenomap':
-                jsonResult = createJob(params, Phenomap)
+                jsonResult = createJob(params, Phenomap, false)
                 break
             case 'sysinflame_diversity':
-                jsonResult = createJob(params, Sysinflame_Diversity)
+                jsonResult = createJob(params, Sysinflame_Diversity, false)
                 break
             default:
                 jsonResult = RModulesService.scheduleJob(
