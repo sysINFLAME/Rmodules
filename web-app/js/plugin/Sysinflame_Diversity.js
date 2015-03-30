@@ -3,7 +3,7 @@
  * - Register drag and drop.
  * - Clear out all gobal variables and reset them to blank.
  */
-function loadSysinflame_DiversityView(){
+function loadSysinflame_diversityView(){
 	sysinflame_Diversity.clear_high_dimensional_input('divCategoryVariable');
 	sysinflame_Diversity.register_drag_drop();
 }
@@ -17,7 +17,7 @@ var Sysinflame_DiversityView = function () {
 Sysinflame_DiversityView.prototype = new RmodulesView();
 
 // correct the pointer
-Sysinflame_DiversityView.prototype.constructor = PhenoMapView;
+Sysinflame_DiversityView.prototype.constructor = Sysinflame_DiversityView;
 
 Sysinflame_DiversityView.prototype.submit_job = function (form) {
     var variablesConceptCode = readConceptVariables("divCategoryVariable");
