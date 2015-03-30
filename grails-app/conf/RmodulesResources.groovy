@@ -1,6 +1,6 @@
 modules = {
 	sysinflame_diversity {
-	        resource url:"/js/plugin/SysInflame_Diversity.js"
+	        resource url:"/js/plugin/Sysinflame_Diversity.js"
 	    }
     phenomap {
         resource url:"/js/plugin/Phenomap.js"
