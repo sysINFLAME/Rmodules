@@ -25,19 +25,13 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
     
     var metabolomEle = Ext.get("divCategoryVariable");
     var censorEle = Ext.get("divDataNode");
-    var constraints_json = this.get_analysis_constraints('RHeatmap');
-    constraints_json['projections'] = ["zscore"];
-
-    constraints = JSON.stringify(constraints_json);
+    
     
     
     var formParams = {
         jobType:'sysinflameDiversity',
         variablesMetabolomConceptPaths:variablesMetabolomCode,
-        variablesCensorConceptPaths:variableCensorEleCode,
-        analysisConstraints : constraints
-        
-       
+        variablesCensorConceptPaths:variableCensorEleCode
         //        correlationBy:form.correlationBy.value,
   //      correlationType:form.correlationType.value
     };

@@ -44,7 +44,7 @@ grails.project.dependency.resolution = {
         // uncomment to disable ehcache
         // excludes 'ehcache'
     }
-    log "warn"
+    log "debug"
 
     repositories {
         // grailsPlugins()
