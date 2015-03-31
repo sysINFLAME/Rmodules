@@ -8,6 +8,7 @@ import jobs.table.Table
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
+import org.transmartproject.core.dataquery.highdim.HighDimensionResource
 
 import javax.annotation.PostConstruct
 
@@ -22,6 +23,10 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     @Autowired
     MultiNumericClinicalVariableColumnConfigurator columnConfigurator
 
+    @Autowired
+    HighDimensionResource highDimensionResource
+
+    
     @Autowired
     Table table
 
@@ -54,7 +59,18 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 temporaryDirectory: temporaryDirectory,
                 groupNamesHolder:   holder,
                 outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-//
+
+        def openResultSetStep = new OpenHighDimensionalDataStep(
+                params: params,
+                dataTypeResource: highDimensionResource.getSubResourceForType(analysisConstraints['data_type']),
+                analysisConstraints: analysisConstraints)
+
+        steps << openResultSetStep
+
+
+        steps << createDumpHighDimensionDataStep { -> openResultSetStep.results }
+
+        //
 //        steps << new RCommandsStep(
 //                temporaryDirectory: temporaryDirectory,
 //                scriptsDirectory: scriptsDirectory,
