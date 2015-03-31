@@ -87,6 +87,8 @@ class AnalysisQuartzJobAdapter implements Job {
         BEANS_STORAGE[BEAN_USER_PARAMETERS] = jobDataMap[PARAM_USER_PARAMETERS]
         BEANS_STORAGE[BEAN_ANALYSIS_CONSTRAINTS] = jobDataMap[PARAM_ANALYSIS_CONSTRAINTS]
         BEANS_STORAGE[BEAN_USER_IN_CONTEXT] = jobDataMap[PARAM_USER_IN_CONTEXT]
+
+
     }
 
     static void cleanJobBeans() {
