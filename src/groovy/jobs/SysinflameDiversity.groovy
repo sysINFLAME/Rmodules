@@ -1,5 +1,6 @@
 package jobs
 
+import org.transmartproject.core.dataquery.highdim.HighDimensionResource
 import jobs.steps.*
 import jobs.steps.helpers.GroupNamesHolder
 import jobs.steps.helpers.MultiNumericClinicalVariableColumnConfigurator
@@ -24,7 +25,10 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 
     @Autowired
     Table table
-
+    
+    @Autowired
+    HighDimensionResource highDimensionResource
+    
     GroupNamesHolder holder = new GroupNamesHolder()
 
     @PostConstruct
@@ -54,7 +58,16 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 temporaryDirectory: temporaryDirectory,
                 groupNamesHolder:   holder,
                 outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-//
+
+        def openResultSetStep = new OpenHighDimensionalDataStep(
+                params: params,
+                dataTypeResource: highDimensionResource.getSubResourceForType(analysisConstraints['data_type']),
+                analysisConstraints: analysisConstraints)
+
+        steps << openResultSetStep
+
+        steps << createDumpHighDimensionDataStep { -> openResultSetStep.results }
+        
 //        steps << new RCommandsStep(
 //                temporaryDirectory: temporaryDirectory,
 //                scriptsDirectory: scriptsDirectory,
