@@ -50,7 +50,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 
         steps << new BuildTableResultStep(
                 table: table,
-                configurators: [columnConfigurator])
+                configurators: [primaryKeyColumnConfigurator,columnConfigurator])
 //
         steps << new CorrelationAnalysisDumpDataStep(
                 table: table,
