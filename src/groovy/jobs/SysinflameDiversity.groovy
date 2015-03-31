@@ -67,10 +67,10 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 outputFileName: DEFAULT_OUTPUT_FILE_NAME
         )
        
-        def openResultSetStep = new OpenHighDimensionalDataStep(
-                params: params,
-                dataTypeResource: highDimensionResource.getSubResourceForType(analysisConstraints['data_type']),
-                analysisConstraints: analysisConstraints)
+//        def openResultSetStep = new OpenHighDimensionalDataStep(
+//                params: params,
+//                dataTypeResource: highDimensionResource.getSubResourceForType(analysisConstraints['data_type']),
+//                analysisConstraints: analysisConstraints)
 
 //        steps << openResultSetStep
 
