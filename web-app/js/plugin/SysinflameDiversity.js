@@ -33,7 +33,7 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
         variablesMetabolomConceptPaths:variablesMetabolomCode,
         variablesCensorConceptPaths:variableCensorEleCode,
         analysisConstraints: JSON.stringify({
-            "job_type": _this.jobType,
+            "job_type": jobType,
             "data_type": GLOBAL.HighDimDataType,
             "assayConstraints": {
                 "patient_set": [GLOBAL.CurrentSubsetIDs[1], GLOBAL.CurrentSubsetIDs[2]],
