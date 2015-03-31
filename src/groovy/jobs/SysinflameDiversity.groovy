@@ -26,8 +26,8 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 	@Autowired
     SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
-    @Autowired
-    HighDimensionColumnConfigurator highDimensionColumnConfigurator
+//    @Autowired
+//    HighDimensionColumnConfigurator highDimensionColumnConfigurator
     
     @Autowired
     NumericColumnConfigurator columnConfigurator
