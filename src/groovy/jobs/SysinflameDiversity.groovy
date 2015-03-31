@@ -31,7 +31,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     void init() {
 
         columnConfigurator.header = 'VALUE'
-        columnConfigurator.keyForConceptPaths = 'variablesConceptPaths'
+        columnConfigurator.keyForConceptPaths = 'variablesCensorConceptPaths'
         columnConfigurator.groupNamesHolder = holder
 
     }
@@ -48,20 +48,20 @@ class SysinflameDiversity extends AbstractAnalysisJob {
         steps << new BuildTableResultStep(
                 table: table,
                 configurators: [columnConfigurator])
-
-        steps << new CorrelationAnalysisDumpDataStep(
-                table: table,
-                temporaryDirectory: temporaryDirectory,
-                groupNamesHolder:   holder,
-                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-
-        steps << new RCommandsStep(
-                temporaryDirectory: temporaryDirectory,
-                scriptsDirectory: scriptsDirectory,
-                rStatements: RStatements,
-                studyName: studyName,
-                params: params,
-                extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME])
+//
+//        steps << new CorrelationAnalysisDumpDataStep(
+//                table: table,
+//                temporaryDirectory: temporaryDirectory,
+//                groupNamesHolder:   holder,
+//                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
+//
+//        steps << new RCommandsStep(
+//                temporaryDirectory: temporaryDirectory,
+//                scriptsDirectory: scriptsDirectory,
+//                rStatements: RStatements,
+//                studyName: studyName,
+//                params: params,
+//                extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME])
 
         steps
     }
