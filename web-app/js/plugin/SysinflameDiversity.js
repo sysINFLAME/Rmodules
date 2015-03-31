@@ -51,7 +51,7 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
                 "disjunction": null
             },
             "projections": ["rnaseq_values"]
-        }),
+        })
         
         
         //        correlationBy:form.correlationBy.value,
