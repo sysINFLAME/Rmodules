@@ -33,7 +33,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     void init() {
     	primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
         columnConfigurator.header = 'VALUE'
-        columnConfigurator.setKeys('variablesCensorConceptPaths')
+        columnConfigurator.keyForConceptPath = 'variablesCensorConceptPaths'
         columnConfigurator.alwaysClinical = true
         
         
