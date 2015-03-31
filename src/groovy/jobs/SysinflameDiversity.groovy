@@ -2,7 +2,7 @@ package jobs
 
 import jobs.steps.*
 import jobs.steps.helpers.GroupNamesHolder
-import jobs.steps.helpers.MultiNumericClinicalVariableColumnConfigurator
+import jobs.steps.helpers.NumericClinicalVariableColumnConfigurator
 import jobs.steps.helpers.SimpleAddColumnConfigurator
 import jobs.table.Table
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,7 +22,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 
     
     @Autowired
-    MultiNumericClinicalVariableColumnConfigurator columnConfigurator
+    NumericClinicalVariableColumnConfigurator columnConfigurator
 
     @Autowired
     Table table
@@ -34,7 +34,6 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     	primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
         columnConfigurator.header = 'VALUE'
         columnConfigurator.keyForConceptPaths = 'variablesCensorConceptPaths'
-        columnConfigurator.groupNamesHolder = holder
         
         
         
