@@ -2,7 +2,7 @@ package jobs
 
 import jobs.steps.*
 import jobs.steps.helpers.GroupNamesHolder
-import jobs.steps.helpers.NumericClinicalVariableColumnConfigurator
+import jobs.steps.helpers.NumericColumnConfigurator
 import jobs.steps.helpers.SimpleAddColumnConfigurator
 import jobs.table.Table
 import org.springframework.beans.factory.annotation.Autowired
