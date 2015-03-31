@@ -19,6 +19,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     @Autowired
     SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
+    
     @Autowired
     MultiNumericClinicalVariableColumnConfigurator columnConfigurator
 
@@ -29,11 +30,13 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 
     @PostConstruct
     void init() {
-
+    	primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
         columnConfigurator.header = 'VALUE'
         columnConfigurator.keyForConceptPaths = 'variablesCensorConceptPaths'
         columnConfigurator.groupNamesHolder = holder
-
+        
+        
+        
     }
 
     @Override
