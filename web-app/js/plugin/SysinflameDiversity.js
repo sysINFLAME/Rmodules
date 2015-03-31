@@ -26,7 +26,7 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
     var metabolomEle = Ext.get("divCategoryVariable");
     var censorEle = Ext.get("divDataNode");
     var rnaseqVal = variablesMetabolomCode;
-    var _jobType = 'sysinflameDiversity'
+    var jobType = 'sysinflameDiversity'
     var _this = this
     
     var formParams = {
