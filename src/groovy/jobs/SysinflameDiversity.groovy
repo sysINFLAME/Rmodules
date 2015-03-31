@@ -66,6 +66,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 temporaryDirectory: temporaryDirectory,
                 outputFileName: DEFAULT_OUTPUT_FILE_NAME
         )
+       
         def openResultSetStep = new OpenHighDimensionalDataStep(
                 params: params,
                 dataTypeResource: highDimensionResource.getSubResourceForType(analysisConstraints['data_type']),
@@ -89,6 +90,12 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 //                extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME])
 
         steps
+    }
+    protected Step createDumpHighDimensionDataStep(Closure resultsHolder) {
+    	new ValueGroupDumpDataStep(
+                temporaryDirectory: temporaryDirectory,
+                resultsHolder: resultsHolder,
+                params: params)
     }
 
     
