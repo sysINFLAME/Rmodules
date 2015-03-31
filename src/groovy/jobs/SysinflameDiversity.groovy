@@ -22,7 +22,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 
     
     @Autowired
-    NumericClinicalVariableColumnConfigurator columnConfigurator
+    NumericColumnConfigurator columnConfigurator
 
     @Autowired
     Table table
