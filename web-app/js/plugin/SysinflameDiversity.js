@@ -34,7 +34,7 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
         variablesCensorConceptPaths:variableCensorEleCode
         analysisConstraints: JSON.stringify({
             "job_type": _this.jobType,
-            "data_type": "rnaseq",
+            "data_type": GLOBAL.HighDimDataType,
             "assayConstraints": {
                 "patient_set": [GLOBAL.CurrentSubsetIDs[1], GLOBAL.CurrentSubsetIDs[2]],
                 "assay_id_list": null,
