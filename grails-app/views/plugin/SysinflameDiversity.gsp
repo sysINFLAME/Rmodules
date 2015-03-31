@@ -1,5 +1,5 @@
 %{--include js lib for heatmap dynamically--}%
-<r:require modules="sysinflame_diversity"/>
+<r:require modules="sysinflameDiversity"/>
 <r:layoutResources disposition="defer"/>
 
 <div id="analysisWidget">
@@ -29,7 +29,7 @@
                         <div id='divCategoryVariable' class="queryGroupIncludeLong divInputBox"></div>
                         <div class="highDimBtns">
                             <button type="button" onclick="highDimensionalData.gather_high_dimensional_data('divCategoryVariable', true)">High Dimensional Data</button>
-                            <button type="button" onclick="sysinflame_DiversityView.clear_high_dimensional_input('divCategoryVariable')">Clear</button>
+                            <button type="button" onclick="sysinflameDiversityView.clear_high_dimensional_input('divCategoryVariable')">Clear</button>
                         </div>
                         <input type="hidden" id="dependentVarDataType">
                         <input type="hidden" id="dependentPathway">
@@ -53,7 +53,7 @@
                     This variable is not required.	</div>
                     <div id='divDataNode' class="queryGroupIncludeLong divInputBox"></div>
                     <div class="highDimBtns">
-                        <button type="button" onclick="sysinflame_DiversityView.clear_high_dimensional_input('divDataNode')">Clear</button>
+                        <button type="button" onclick="sysinflameDiversityView.clear_high_dimensional_input('divDataNode')">Clear</button>
                     </div>
                 </fieldset>
             </div>
@@ -63,7 +63,7 @@
         %{-- Tool Bar --}%
         %{-- ************************************************************************************************* --}%
         <fieldset class="toolFields">
-            <input type="button" value="Run" onClick="sysinflame_DiversityView.submit_job(this.form);" class="runAnalysisBtn">
+            <input type="button" value="Run" onClick="sysinflameDiversityView.submit_job(this.form);" class="runAnalysisBtn">
         </fieldset>
     </form>
 

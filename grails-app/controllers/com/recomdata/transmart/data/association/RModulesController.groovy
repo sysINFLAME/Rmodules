@@ -138,9 +138,9 @@ log.warn('SWITCH' + params['analysis'])
             case 'phenomap':
                 jsonResult = createJob(params, Phenomap, false)
                 break
-            case 'sysinflame_diversity':
-	log.warn('YES PLS')
-                jsonResult = createJob(params, Sysinflame_Diversity, false)
+            case 'sysinflameDiversity':
+            	log.warn('YES PLS')
+                jsonResult = createJob(params, SysinflameDiversity, false)
                 break
             default:
                 jsonResult = RModulesService.scheduleJob(

@@ -16,7 +16,7 @@
 
 package com.recomdata.transmart.data.association
 
-class Sysinflame_DiversityController {
+class SysinflameDiversityController {
 
 
   def RModulesOutputRenderService
@@ -33,14 +33,14 @@ class Sysinflame_DiversityController {
     String jobName = params.jobName
 log.warn('CONTROLLER')
     //Gather the image links.
-    RModulesOutputRenderService.initializeAttributes(jobName,"sysinflame_diversity",imageLinks)
+    RModulesOutputRenderService.initializeAttributes(jobName,"sysinflameDiversity",imageLinks)
 
     String tempDirectory = RModulesOutputRenderService.tempDirectory
 
     //Traverse the temporary directory for the LinearRegression files.
     def tempDirectoryFile = new File(tempDirectory)
 
-    render(template: "/plugin/sysinflame_diversity_out", 
+    render(template: "/plugin/sysinflameDiversity_out", 
         model:[
           imageLocations:imageLinks,
           zipLink:RModulesOutputRenderService.zipLink

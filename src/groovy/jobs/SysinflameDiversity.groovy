@@ -15,7 +15,7 @@ import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 
 @Component
 @Scope('job')
-class Sysinflame_Diversity extends AbstractAnalysisJob {
+class SysinflameDiversity extends AbstractAnalysisJob {
     @Autowired
     SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
@@ -82,6 +82,6 @@ class Sysinflame_Diversity extends AbstractAnalysisJob {
     @Override
     protected getForwardPath() {
 	log.warn('FORWARDPATH')
-    	 "/sysinflame_diversity/sysinflame_diversityOut?jobName=${name}"
+    	 "/sysinflameDiversity/sysinflameDiversityOut?jobName=${name}"
     }
 }

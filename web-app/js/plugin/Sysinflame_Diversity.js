@@ -3,23 +3,23 @@
  * - Register drag and drop.
  * - Clear out all gobal variables and reset them to blank.
  */
-function loadSysinflame_diversityView(){
-	sysinflame_DiversityView.clear_high_dimensional_input('divCategoryVariable');
-	sysinflame_DiversityView.register_drag_drop();
+function loadSysinflamediversityView(){
+	sysinflameDiversityView.clear_high_dimensional_input('divCategoryVariable');
+	sysinflameDiversityView.register_drag_drop();
 }
 
 // constructor
-var Sysinflame_DiversityView = function () {
+var SysinflameDiversityView = function () {
     RmodulesView.call(this);
 }
 
 // inherit RmodulesView
-Sysinflame_DiversityView.prototype = new RmodulesView();
+SysinflameDiversityView.prototype = new RmodulesView();
 
 // correct the pointer
-Sysinflame_DiversityView.prototype.constructor = Sysinflame_DiversityView;
+SysinflameDiversityView.prototype.constructor = SysinflameDiversityView;
 
-Sysinflame_DiversityView.prototype.submit_job = function (form) {
+SysinflameDiversityView.prototype.submit_job = function (form) {
     var variablesMetabolomCode = readConceptVariables("divCategoryVariable");
     var variableCensorEleCode = readConceptVariables("divDataNode");
     
@@ -29,7 +29,7 @@ Sysinflame_DiversityView.prototype.submit_job = function (form) {
     
     
     var formParams = {
-        jobType:'sysinflame_diversity',
+        jobType:'sysinflameDiversity',
         variablesMetabolomConceptPaths:variablesMetabolomCode,
         variablesCensorConceptPaths:variableCensorEleCode
         //        correlationBy:form.correlationBy.value,
@@ -54,6 +54,6 @@ console.warn('submitjob@JS')
 
 
 // init heat map view instance
-var sysinflame_DiversityView = new Sysinflame_DiversityView();
+var sysinflameDiversityView = new SysinflameDiversityView();
 
 
