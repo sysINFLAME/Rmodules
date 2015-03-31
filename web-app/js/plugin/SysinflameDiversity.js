@@ -3,7 +3,7 @@
  * - Register drag and drop.
  * - Clear out all gobal variables and reset them to blank.
  */
-function loadSysinflamediversityView(){
+function loadSysinflameDiversityView(){
 	sysinflameDiversityView.clear_high_dimensional_input('divCategoryVariable');
 	sysinflameDiversityView.register_drag_drop();
 }
