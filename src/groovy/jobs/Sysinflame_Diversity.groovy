@@ -23,118 +23,59 @@ import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 @Component
 @Scope('job')
 class Sysinflame_Diversity extends AbstractAnalysisJob {
-    private static final String SCALING_VALUES_FILENAME = 'conceptScaleValues'
+	 @Autowired
+	    SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
-    @Autowired
-    SimpleAddColumnConfigurator primaryKeyColumnConfigurator
+	    @Autowired
+	    MultiNumericClinicalVariableColumnConfigurator columnConfigurator
 
+	    @Autowired
+	    Table table
 
-    @Autowired
-    @Qualifier('general')
-    OptionalBinningColumnConfigurator innerGroupByConfigurator
-
-    @Autowired
-    OptionalColumnConfiguratorDecorator groupByConfigurator
-
-    @Autowired
-    ContextNumericVariableColumnConfigurator measurementConfigurator
-
-    @Autowired
-    ConceptTimeValuesTable conceptTimeValues
-
-    @Autowired
-    Table table
+	    GroupNamesHolder holder = new GroupNamesHolder()
+	 
+	 
 
     @PostConstruct
     void init() {
 	log.warn('INITINTI')        
-primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
+	columnConfigurator.header = 'VALUE'
+    columnConfigurator.keyForConceptPaths = 'variablesConceptPaths'
+    columnConfigurator.groupNamesHolder = holder
 
-        measurementConfigurator.header                = 'VALUE'
-        measurementConfigurator.projection            = Projection.LOG_INTENSITY_PROJECTION
-        measurementConfigurator.multiRow              = true
-        measurementConfigurator.multiConcepts         = true
-        // we do not want group name pruning for LineGraph
-        measurementConfigurator.pruneConceptPath      = false
-
-        measurementConfigurator.keyForConceptPath     = 'dependentVariable'
-        measurementConfigurator.keyForDataType        = 'divDependentVariableType'
-        measurementConfigurator.keyForSearchKeywordId = 'divDependentVariablePathway'
-
-        innerGroupByConfigurator.projection           = Projection.LOG_INTENSITY_PROJECTION
-        innerGroupByConfigurator.multiRow             = true
-        innerGroupByConfigurator.keyForIsCategorical  = 'groupByVariableCategorical'
-        innerGroupByConfigurator.setKeys 'groupBy'
-
-        def binningConfigurator = innerGroupByConfigurator.binningConfigurator
-        binningConfigurator.keyForDoBinning           = 'binningGroupBy'
-        binningConfigurator.keyForManualBinning       = 'manualBinningGroupBy'
-        binningConfigurator.keyForNumberOfBins        = 'numberOfBinsGroupBy'
-        binningConfigurator.keyForBinDistribution     = 'binDistributionGroupBy'
-        binningConfigurator.keyForBinRanges           = 'binRangesGroupBy'
-        binningConfigurator.keyForVariableType        = 'variableTypeGroupBy'
-
-        groupByConfigurator.header                    = 'GROUP_VAR'
-        groupByConfigurator.generalCase               = innerGroupByConfigurator
-        groupByConfigurator.keyForEnabled             = 'groupByVariable'
-        groupByConfigurator.setConstantColumnFallback 'SINGLE_GROUP'
-
-        conceptTimeValues.conceptPaths = measurementConfigurator.getConceptPaths()
     }
 
     @Override
     protected List<Step> prepareSteps() {
 	log.warn('STEPS')
-        List<Step> steps = []
+	
+    List<Step> steps = []
 
-        steps << new ParametersFileStep(
-                temporaryDirectory: temporaryDirectory,
-                params: params)
+            steps << new ParametersFileStep(
+                    temporaryDirectory: temporaryDirectory,
+                    params: params)
 
-        steps << new BuildTableResultStep(
-                table:         table,
-                configurators: [primaryKeyColumnConfigurator,
-                                measurementConfigurator,
-                                groupByConfigurator])
+//            steps << new BuildTableResultStep(
+//                    table: table,
+//                    configurators: [columnConfigurator])
+//
+//            steps << new CorrelationAnalysisDumpDataStep(
+//                    table: table,
+//                    temporaryDirectory: temporaryDirectory,
+//                    groupNamesHolder:   holder,
+//                    outputFileName: DEFAULT_OUTPUT_FILE_NAME)
+//
+//            steps << new RCommandsStep(
+//                    temporaryDirectory: temporaryDirectory,
+//                    scriptsDirectory: scriptsDirectory,
+//                    rStatements: RStatements,
+//                    studyName: studyName,
+//                    params: params,
+//                    extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME])
 
-        steps << new LineGraphDumpTableResultsStep(
-                table:              table,
-                temporaryDirectory: temporaryDirectory,
-                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-
-        steps << new BuildConceptTimeValuesStep(
-                table: conceptTimeValues,
-                outputFile: new File(temporaryDirectory, SCALING_VALUES_FILENAME),
-                header: [ "GROUP", "VALUE" ]
-        )
-
-        Map<String, Closure<String>> extraParams = [:]
-        extraParams['scalingFilename'] = { getScalingFilename() }
-        extraParams['inputFileName'] = { DEFAULT_OUTPUT_FILE_NAME }
-
-        steps << new RCommandsStep(
-                temporaryDirectory: temporaryDirectory,
-                scriptsDirectory:   scriptsDirectory,
-                rStatements:        RStatements,
-                studyName:          studyName,
-                params:             params,
-                extraParams:        Maps.transformValues(extraParams, { it() } as Function))
-
-        steps
+            steps
     }
 
-    private String getScalingFilename() {
-        conceptTimeValues.resultMap ? SCALING_VALUES_FILENAME : null
-    }
-
-    
-    
-    
- 
-    
-    
-    
-    
     
     @Override
     protected List<String> getRStatements() {
