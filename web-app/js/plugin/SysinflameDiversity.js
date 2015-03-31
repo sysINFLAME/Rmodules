@@ -30,10 +30,11 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
     var _this = this
     
     var formParams = {
+    	jobType: 'sysinflameDiversity',
         variablesMetabolomConceptPaths:variablesMetabolomCode,
         variablesCensorConceptPaths:variableCensorEleCode,
         analysisConstraints: JSON.stringify({
-            "job_type": _this.jobType,
+            "job_type": 'sysinflameDiversity',
             "data_type": "rnaseq",
             "assayConstraints": {
                 "patient_set": [GLOBAL.CurrentSubsetIDs[1], GLOBAL.CurrentSubsetIDs[2]],
@@ -50,8 +51,8 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
                 "disjunction": null
             },
             "projections": ["rnaseq_values"]
-        }),
-        jobType: _this.jobType
+        })
+       
     };
 
     //If the list of concepts we are running the analysis on is empty, alert the user.
