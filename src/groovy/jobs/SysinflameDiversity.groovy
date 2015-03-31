@@ -72,9 +72,9 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 dataTypeResource: highDimensionResource.getSubResourceForType(analysisConstraints['data_type']),
                 analysisConstraints: analysisConstraints)
 
-        steps << openResultSetStep
+//        steps << openResultSetStep
 
-        steps << createDumpHighDimensionDataStep {-> openResultSetStep.results}
+//        steps << createDumpHighDimensionDataStep {-> openResultSetStep.results}
         
 //        steps << new CorrelationAnalysisDumpDataStep(
 //                table: table,
