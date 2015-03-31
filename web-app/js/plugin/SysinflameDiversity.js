@@ -26,14 +26,14 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
     var metabolomEle = Ext.get("divCategoryVariable");
     var censorEle = Ext.get("divDataNode");
     var rnaseqVal = variablesMetabolomCode;
-    
+    var _jobType = 'sysinflameDiversity'
     
     var formParams = {
-        jobType:'sysinflameDiversity',
+        jobType:_jobType,
         variablesMetabolomConceptPaths:variablesMetabolomCode,
         variablesCensorConceptPaths:variableCensorEleCode,
         analysisConstraints: JSON.stringify({
-            "job_type": jobType,
+            "job_type": _jobType,
             "data_type": GLOBAL.HighDimDataType,
             "assayConstraints": {
                 "patient_set": [GLOBAL.CurrentSubsetIDs[1], GLOBAL.CurrentSubsetIDs[2]],
