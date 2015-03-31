@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import jobs.table.columns.PrimaryKeyColumn
 import javax.annotation.PostConstruct
+import jobs.steps.SimpleDumpTableResultStep
 
 import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 
@@ -52,12 +53,18 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 table: table,
                 configurators: [primaryKeyColumnConfigurator,columnConfigurator])
 //
-        steps << new CorrelationAnalysisDumpDataStep(
-                table: table,
+        
+        steps << new SimpleDumpTableResultStep(table: table,
                 temporaryDirectory: temporaryDirectory,
-                groupNamesHolder:   holder,
-                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-//
+                outputFileName: DEFAULT_OUTPUT_FILE_NAME
+        )
+        
+        
+//        steps << new CorrelationAnalysisDumpDataStep(
+//                table: table,
+//                temporaryDirectory: temporaryDirectory,
+//                groupNamesHolder:   holder,
+//                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
 //        steps << new RCommandsStep(
 //                temporaryDirectory: temporaryDirectory,
 //                scriptsDirectory: scriptsDirectory,
