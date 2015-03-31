@@ -8,7 +8,7 @@ import jobs.table.Table
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
-
+import jobs.table.columns.PrimaryKeyColumn
 import javax.annotation.PostConstruct
 
 import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
