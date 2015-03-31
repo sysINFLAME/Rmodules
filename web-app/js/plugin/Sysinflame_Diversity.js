@@ -47,8 +47,7 @@ Sysinflame_DiversityView.prototype.submit_job = function (form) {
         Ext.Msg.alert('Missing input!', 'Please drag one censor concepts into each variable box.');
         return;
     }
-
-
+console.warn('submitjob@JS')
     submitJob(formParams);
 }
 

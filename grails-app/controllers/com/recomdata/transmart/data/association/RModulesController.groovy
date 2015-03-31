@@ -82,7 +82,7 @@ class RModulesController {
         if (jobResultsService[params.jobName] == null) {
             throw new IllegalStateException('Cannot schedule job; it has not been created')
         }
-
+log.warn('SWITCH' + params['analysis'])
         switch (params['analysis']) {
             case 'heatmap':
                 jsonResult = createJob(params, Heatmap)
@@ -139,6 +139,7 @@ class RModulesController {
                 jsonResult = createJob(params, Phenomap, false)
                 break
             case 'sysinflame_diversity':
+	log.warn('YES PLS')
                 jsonResult = createJob(params, Sysinflame_Diversity, false)
                 break
             default:

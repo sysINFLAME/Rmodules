@@ -23,7 +23,6 @@ import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 @Component
 @Scope('job')
 class Sysinflame_Diversity extends AbstractAnalysisJob {
-
     private static final String SCALING_VALUES_FILENAME = 'conceptScaleValues'
 
     @Autowired
@@ -48,7 +47,8 @@ class Sysinflame_Diversity extends AbstractAnalysisJob {
 
     @PostConstruct
     void init() {
-        primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
+	log.warn('INITINTI')        
+primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
 
         measurementConfigurator.header                = 'VALUE'
         measurementConfigurator.projection            = Projection.LOG_INTENSITY_PROJECTION
@@ -84,6 +84,7 @@ class Sysinflame_Diversity extends AbstractAnalysisJob {
 
     @Override
     protected List<Step> prepareSteps() {
+	log.warn('STEPS')
         List<Step> steps = []
 
         steps << new ParametersFileStep(
@@ -137,6 +138,7 @@ class Sysinflame_Diversity extends AbstractAnalysisJob {
     
     @Override
     protected List<String> getRStatements() {
+	log.warn('GETRGETR')
         [    '''Diversity.loader(
              input.filename = '$inputFileName',
              aggregate.probes = '$divIndependentVariableprobesAggregation' == 'true'
@@ -148,6 +150,7 @@ class Sysinflame_Diversity extends AbstractAnalysisJob {
 
     @Override
     protected getForwardPath() {
+	log.warn('FORWARDPATH')
     	 "/sysinflame_diversity/sysinflame_diversityOut?jobName=${name}"
     }
 }

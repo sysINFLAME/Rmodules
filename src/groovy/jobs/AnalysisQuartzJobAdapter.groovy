@@ -37,15 +37,19 @@ class AnalysisQuartzJobAdapter implements Job {
     private static ThreadLocal<String> BOUND_JOB_NAME = new ThreadLocal()
 
     static Map<String, Object> getBEANS_STORAGE() {
+	log.warn('GETBEANSMAP')
+	log.warn(BEANS_MAP.get())
         BEANS_MAP.get()
     }
 
     static String getCURRENT_JOB_NAME() {
+	log.warn('GETCURRENTJOBNAME ' + BOUND_JOB_NAME.get())
         BOUND_JOB_NAME.get()
     }
 
     @Override
     void execute(JobExecutionContext context) throws JobExecutionException {
+	log.warn('EXECUTE')
         this.jobDataMap = context.jobDetail.jobDataMap
 
         def jobName = jobDataMap[PARAM_JOB_NAME]
@@ -83,10 +87,16 @@ class AnalysisQuartzJobAdapter implements Job {
     }
 
     void setupDefaultScopeBeans() {
+	log.warn('setupDefaultScopeBeans() ' + CURRENT_JOB_NAME)
         BEANS_STORAGE['jobName'] = CURRENT_JOB_NAME
         BEANS_STORAGE[BEAN_USER_PARAMETERS] = jobDataMap[PARAM_USER_PARAMETERS]
         BEANS_STORAGE[BEAN_ANALYSIS_CONSTRAINTS] = jobDataMap[PARAM_ANALYSIS_CONSTRAINTS]
         BEANS_STORAGE[BEAN_USER_IN_CONTEXT] = jobDataMap[PARAM_USER_IN_CONTEXT]
+	log.warn('1 '+jobDataMap[PARAM_USER_PARAMETERS])
+	log.warn('2 ' +jobDataMap[PARAM_ANALYSIS_CONSTRAINTS])
+	log.warn('3 ' +jobDataMap[PARAM_USER_IN_CONTEXT])
+
+
     }
 
     static void cleanJobBeans() {
@@ -99,6 +109,9 @@ class AnalysisQuartzJobAdapter implements Job {
     AbstractAnalysisJob createAnalysisJob() {
         Class jobClass = jobDataMap.jobClass
 
+log.warn('PARAM_GRAILS_APPLICATION ' + PARAM_GRAILS_APPLICATION)
+log.warn(jobClass)
+log.warn(jobDataMap[PARAM_GRAILS_APPLICATION].mainContext.getBean+ ' ' + jobClass)
         AbstractAnalysisJob job = jobDataMap[PARAM_GRAILS_APPLICATION].mainContext.getBean jobClass
 
         /* wire things up */

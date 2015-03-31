@@ -31,9 +31,9 @@ class Sysinflame_DiversityController {
 
     //Grab the job ID from the query string.
     String jobName = params.jobName
-
+log.warn('CONTROLLER')
     //Gather the image links.
-    RModulesOutputRenderService.initializeAttributes(jobName,"Sysinflame_Diversity",imageLinks)
+    RModulesOutputRenderService.initializeAttributes(jobName,"sysinflame_diversity",imageLinks)
 
     String tempDirectory = RModulesOutputRenderService.tempDirectory
 
