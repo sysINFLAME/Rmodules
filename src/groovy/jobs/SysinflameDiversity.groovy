@@ -49,11 +49,11 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 table: table,
                 configurators: [columnConfigurator])
 //
-//        steps << new CorrelationAnalysisDumpDataStep(
-//                table: table,
-//                temporaryDirectory: temporaryDirectory,
-//                groupNamesHolder:   holder,
-//                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
+        steps << new CorrelationAnalysisDumpDataStep(
+                table: table,
+                temporaryDirectory: temporaryDirectory,
+                groupNamesHolder:   holder,
+                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
 //
 //        steps << new RCommandsStep(
 //                temporaryDirectory: temporaryDirectory,

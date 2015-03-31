@@ -21,8 +21,10 @@ class BuildTableResultStep implements Step {
             }
 
             table.buildTable()
+
         } catch (Exception e) {
             try {
+
                 table.close()
             } catch (Exception e2) {
                 log.error('Error closing table after exception retrieving results', e2)
