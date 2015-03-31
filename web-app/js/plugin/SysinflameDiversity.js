@@ -30,7 +30,6 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
     var _this = this
     
     var formParams = {
-        jobType:_jobType,
         variablesMetabolomConceptPaths:variablesMetabolomCode,
         variablesCensorConceptPaths:variableCensorEleCode,
         analysisConstraints: JSON.stringify({
@@ -51,11 +50,8 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
                 "disjunction": null
             },
             "projections": ["rnaseq_values"]
-        })
-        
-        
-        //        correlationBy:form.correlationBy.value,
-  //      correlationType:form.correlationType.value
+        }),
+        jobType: _this.jobType
     };
 
     //If the list of concepts we are running the analysis on is empty, alert the user.
