@@ -11,15 +11,23 @@ import org.springframework.stereotype.Component
 import jobs.table.columns.PrimaryKeyColumn
 import javax.annotation.PostConstruct
 import jobs.steps.SimpleDumpTableResultStep
+import jobs.steps.helpers.HighDimensionColumnConfigurator
+import org.transmartproject.core.dataquery.highdim.HighDimensionResource
 
 import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 
 @Component
 @Scope('job')
 class SysinflameDiversity extends AbstractAnalysisJob {
-    @Autowired
+    
+	 @Autowired
+	 HighDimensionResource highDimensionResource
+	
+	@Autowired
     SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
+    @Autowired
+    HighDimensionColumnConfigurator highDimensionColumnConfigurator
     
     @Autowired
     NumericColumnConfigurator columnConfigurator
@@ -58,7 +66,14 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 temporaryDirectory: temporaryDirectory,
                 outputFileName: DEFAULT_OUTPUT_FILE_NAME
         )
-        
+        def openResultSetStep = new OpenHighDimensionalDataStep(
+                params: params,
+                dataTypeResource: highDimensionResource.getSubResourceForType(analysisConstraints['data_type']),
+                analysisConstraints: analysisConstraints)
+
+        steps << openResultSetStep
+
+        steps << createDumpHighDimensionDataStep {-> openResultSetStep.results}
         
 //        steps << new CorrelationAnalysisDumpDataStep(
 //                table: table,
