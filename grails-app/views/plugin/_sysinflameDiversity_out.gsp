@@ -1,8 +1,8 @@
-<h2>Heatmap</h2>
+<h2>Alpha-Diversity</h2>
 
 <p>
     <div class="plot_hint">
-        Click on the heatmap image to open it in a new window as this may increase readability.
+        Click on the image to open it in a new window as this may increase readability.
         <br><br>
     </div>
 

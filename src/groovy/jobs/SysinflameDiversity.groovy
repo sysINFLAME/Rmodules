@@ -66,31 +66,14 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 table: table,
                 temporaryDirectory: temporaryDirectory,
                 outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-//		steps << new MultiRowAsGroupDumpTableResultsStep(
-//			table: table,
-//			temporaryDirectory: temporaryDirectory,
-//			outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-//        def openResultSetStep = new OpenHighDimensionalDataStep(
-//                params: params,
-//                dataTypeResource: highDimensionResource.getSubResourceForType(analysisConstraints['data_type']),
-//                analysisConstraints: analysisConstraints)
-//analysisConstraints: analysisConstraints)
-//        steps << openResultSetStep
-
-//        steps << createDumpHighDimensionDataStep {-> openResultSetStep.results}
         
-//        steps << new CorrelationAnalysisDumpDataStep(
-//                table: table,
-//                temporaryDirectory: temporaryDirectory,
-//                groupNamesHolder:   holder,
-//                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-//        steps << new RCommandsStep(
-//                temporaryDirectory: temporaryDirectory,
-//                scriptsDirectory: scriptsDirectory,
-//                rStatements: RStatements,
-//                studyName: studyName,
-//                params: params,
-//                extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME])
+        steps << new RCommandsStep(
+                temporaryDirectory: temporaryDirectory,
+                scriptsDirectory: scriptsDirectory,
+                rStatements: RStatements,
+                studyName: studyName,
+                params: params,
+                extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME])
 
         steps
     }
@@ -100,11 +83,10 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     @Override
     protected List<String> getRStatements() {
 	log.warn('GETRGETR')
-        [    '''Diversity.loader(
+        [   
+			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader.r')''',
+			 '''Diversity.loader(
              input.filename = '$inputFileName',
-             aggregate.probes = '$divIndependentVariableprobesAggregation' == 'true'
-             ${ txtMaxDrawNumber ? ", maxDrawNumber  = as.integer('$txtMaxDrawNumber')" : ''},
-             calculateZscore = '$calculateZscore'
              )'''
         ]
     }
@@ -112,6 +94,6 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     @Override
     protected getForwardPath() {
 	log.warn('FORWARDPATH')
-    	 "/sysinflameDiversity/sysinflameDiversityOut?jobName=${name}"
+    	 "/sysinflameDiversity/sysinflameDiversityOutput?jobName=$name"
     }
 }

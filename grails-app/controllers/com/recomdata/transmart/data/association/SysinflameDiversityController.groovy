@@ -21,7 +21,7 @@ class SysinflameDiversityController {
 
   def RModulesOutputRenderService
 
-  def heatmapOut =
+  def sysinflameDiversityOutput =
   {
     //This will be the array of image links.
     def ArrayList<String> imageLinks = new ArrayList<String>()
