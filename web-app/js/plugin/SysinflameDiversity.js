@@ -20,52 +20,32 @@ SysinflameDiversityView.prototype = new RmodulesView();
 SysinflameDiversityView.prototype.constructor = SysinflameDiversityView;
 
 SysinflameDiversityView.prototype.submit_job = function (form) {
-    var variablesMetabolomCode = readConceptVariables("divCategoryVariable");
+    var variablesMicrobiomCode = readConceptVariables("divCategoryVariable");
     var variableCensorEleCode = readConceptVariables("divDataNode");
     
     var metabolomEle = Ext.get("divCategoryVariable");
     var censorEle = Ext.get("divDataNode");
-    var rnaseqVal = variablesMetabolomCode;
+    var rnaseqVal = variablesMicrobiomCode;
     var jobType = 'sysinflameDiversity'
     var _this = this
     
+	GLOBAL.Binning = false;
     var formParams = {
     	jobType: 'sysinflameDiversity',
-        variablesMetabolomConceptPaths:variablesMetabolomCode,
-        variablesCensorConceptPaths:variableCensorEleCode,
-        analysisConstraints: JSON.stringify({
-            "job_type": 'sysinflameDiversity',
-            "data_type": "rnaseq",
-            "assayConstraints": {
-                "patient_set": [GLOBAL.CurrentSubsetIDs[1], GLOBAL.CurrentSubsetIDs[2]],
-                "assay_id_list": null,
-                "ontology_term": [
-                    {
-                        'term': rnaseqVal,
-                        'options': {'type': "default"}
-                    }
-                ],
-                "trial_name": null
-            },
-            "dataConstraints": {
-                "disjunction": null
-            },
-            "projections": ["rnaseq_values"]
-        })
-       
+        variablesMicrobiomConceptPaths:variablesMicrobiomCode,
+        variablesCensorConceptPaths:variableCensorEleCode
     };
-
     //If the list of concepts we are running the analysis on is empty, alert the user.
-    if(censorEle.dom.childNodes.length > 1 || metabolomEle.dom.childNodes.length > 1)
-    {
-        Ext.Msg.alert('Too much input!', 'Please drag only one censor concepts into the variables box.');
-        return;
-    }
-    if(censorEle.dom.childNodes.length < 1 || metabolomEle.dom.childNodes.length < 1)
-    {
-        Ext.Msg.alert('Missing input!', 'Please drag one censor concepts into each variable box.');
-        return;
-    }
+//    if(censorEle.dom.childNodes.length > 1 || metabolomEle.dom.childNodes.length > 1)
+//    {
+//        Ext.Msg.alert('Too much input!', 'Please drag only one censor concepts into the variables box.');
+//        return;
+//    }
+//    if(censorEle.dom.childNodes.length < 1 || metabolomEle.dom.childNodes.length < 1)
+//    {
+//        Ext.Msg.alert('Missing input!', 'Please drag one censor concepts into each variable box.');
+//        return;
+//    }
 console.warn('submitjob@JS')
     submitJob(formParams);
 }

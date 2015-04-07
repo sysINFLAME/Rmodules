@@ -91,7 +91,6 @@ class AcghSurvivalAnalysis extends AbstractAnalysisJob implements InitializingBe
         steps
     }
 
-    @Override
     protected Step createDumpHighDimensionDataStep(Closure resultsHolder) {
         new AcghRegionDumpDataStep(
                 temporaryDirectory: temporaryDirectory,

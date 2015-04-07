@@ -87,7 +87,7 @@ MarkerSelectionView.prototype.get_form_params = function () {
         // display the error message
         formValidator.display_errors();
     }
-
+log.warn(formParameters)
     return formParameters;
 }
 

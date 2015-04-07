@@ -23,7 +23,7 @@
             <div class="left">
                 <fieldset class="inputFields">
                     <div class="highDimContainer">
-                        <h3>Metabolom</h3>
+                        <h3>Microbiom</h3>
                         <div class="divInputLabel">Select a matabolom on which you would like to do the analysis and
                         drag it into the box. This variable is required.</div>
                         <div id='divCategoryVariable' class="queryGroupIncludeLong divInputBox"></div>
