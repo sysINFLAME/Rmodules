@@ -20,11 +20,11 @@ SysinflameDiversityView.prototype = new RmodulesView();
 SysinflameDiversityView.prototype.constructor = SysinflameDiversityView;
 
 SysinflameDiversityView.prototype.submit_job = function (form) {
-    var variablesMicrobiomCode = readConceptVariables("divCategoryVariable");
-    var variableCensorEleCode = readConceptVariables("divDataNode");
+    var variablesMicrobiomCode = readConceptVariables("divDataNode");
+    var variableCensorEleCode = readConceptVariables("divCategoryVariable");
     
-    var metabolomEle = Ext.get("divCategoryVariable");
-    var censorEle = Ext.get("divDataNode");
+    var metabolomEle = Ext.get("divDataNode");
+    var censorEle = Ext.get("divCategoryVariable");
     var rnaseqVal = variablesMicrobiomCode;
     var jobType = 'sysinflameDiversity'
     var _this = this

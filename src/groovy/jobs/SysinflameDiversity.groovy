@@ -1,11 +1,13 @@
 package jobs
 
 import jobs.steps.*
+import jobs.steps.helpers.CategoricalColumnConfigurator;
 import jobs.steps.helpers.GroupNamesHolder
 import jobs.steps.helpers.MultiNumericClinicalVariableColumnConfigurator
 import jobs.steps.helpers.SimpleAddColumnConfigurator
 import jobs.table.Table
 import jobs.table.columns.PrimaryKeyColumn
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -26,7 +28,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     MultiNumericClinicalVariableColumnConfigurator columnConfigurator
 	
 	@Autowired
-	MultiNumericClinicalVariableColumnConfigurator columnConfigurator2
+	CategoricalColumnConfigurator columnConfigurator2
 	
     @Autowired
     Table table
@@ -38,14 +40,14 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 		
     	primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
 
-		columnConfigurator2.header = 'VALUE'
-		columnConfigurator2.keyForConceptPaths = 'variablesCensorConceptPaths'
-		columnConfigurator2.groupNamesHolder = holder
-		
-		
 		columnConfigurator.header = 'MICROBIOME'
 		columnConfigurator.keyForConceptPaths = 'variablesMicrobiomConceptPaths'
 		columnConfigurator.groupNamesHolder = holder
+		
+		
+		columnConfigurator2.header = 'CATEGORY'
+		columnConfigurator2.keyForConceptPaths = 'variablesCensorConceptPaths'
+//		columnConfigurator2.groupNamesHolder = holder
     }
 	
 
@@ -62,7 +64,10 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 table: table,
                 configurators: [primaryKeyColumnConfigurator,columnConfigurator,columnConfigurator2]) //categoryVariableConfigurator,categoryVariableConfigurator
 //
-        steps << new SimpleDumpTableResultStep(
+     
+		//MultiRowAsGroupDumpTableResultsStep 
+		//SimpleDumpTableResultStep
+				   steps << new SimpleDumpTableResultStep(
                 table: table,
                 temporaryDirectory: temporaryDirectory,
                 outputFileName: DEFAULT_OUTPUT_FILE_NAME)
@@ -84,7 +89,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     protected List<String> getRStatements() {
 	log.warn('GETRGETR')
         [   
-			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader.R')''',
+			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader_CK.r')''',
 			 '''Diversity.loader(
              input.filename = '$inputFileName',
              )'''

@@ -24,12 +24,12 @@
                 <fieldset class="inputFields">
                     <div class="highDimContainer">
                         <h3>Microbiom</h3>
-                        <div class="divInputLabel">Select a matabolom on which you would like to do the analysis and
+                        <div class="divInputLabel">Select a microbiome on which you would like to do the analysis and
                         drag it into the box. This variable is required.</div>
-                        <div id='divCategoryVariable' class="queryGroupIncludeLong divInputBox"></div>
+                        <div id='divDataNode' class="queryGroupIncludeLong divInputBox"></div>
                         <div class="highDimBtns">
-                            <button type="button" onclick="highDimensionalData.gather_high_dimensional_data('divCategoryVariable', true)">High Dimensional Data</button>
-                            <button type="button" onclick="sysinflameDiversityView.clear_high_dimensional_input('divCategoryVariable')">Clear</button>
+                           %{-- <button type="button" onclick="highDimensionalData.gather_high_dimensional_data('divDataNode', true)">High Dimensional Data</button> --}%
+                            <button type="button" onclick="sysinflameDiversityView.clear_high_dimensional_input('divDataNode')">Clear</button>
                         </div>
                         <input type="hidden" id="dependentVarDataType">
                         <input type="hidden" id="dependentPathway">
@@ -48,12 +48,12 @@
             <div class="right">
                 <fieldset class="inputFields">
                     <h3>Variable</h3>
-                    <div class="divInputLabel">Select the appropriate censoring variable and drag it into the box. For
-                    example, "Survival (Censor) -> Yes".
-                    This variable is not required.	</div>
-                    <div id='divDataNode' class="queryGroupIncludeLong divInputBox"></div>
+                    <div class="divInputLabel">Select the appropriate numeric variable and drag it into the box. For
+                    example, "BMI".
+                    This variable is  required.	</div>
+                    <div id='divCategoryVariable' class="queryGroupIncludeLong divInputBox"></div>
                     <div class="highDimBtns">
-                        <button type="button" onclick="sysinflameDiversityView.clear_high_dimensional_input('divDataNode')">Clear</button>
+                        <button type="button" onclick="sysinflameDiversityView.clear_high_dimensional_input('divCategoryVariable')">Clear</button>
                     </div>
                 </fieldset>
             </div>

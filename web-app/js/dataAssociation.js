@@ -252,6 +252,7 @@ function dropNumericOntoCategorySelection(source, e, data){
 
 function dropNumericOntoCategorySelection2(source, e, data, targetdiv)
 {
+	console.log("dropNumericOntoCategorySelection2");
     //Node must be folder so use children leafs
     if(data.node.leaf==false)
     {
@@ -353,12 +354,42 @@ function dropOntoCategorySelection(source, e, data)
     return true;
 }
 
+function getAllChildNodes(child,targetdiv){
+	console.log("GETALLCHILDNODES");
+	console.log(child);
+    if(child.node.leaf==false)
+    {
+	  for ( var i = 0; i<child.node.childNodes.length; i++)
+      {
+		  console.log("for " + i)
+          //Grab the child node.
+          var current_child=child.node.childNodes[i];
+          getAllChildNodes(current_child,targetdiv)
+          //If this is a leaf node, add it.
+          if(current_child.leaf==true)
+          {
+              //Add the item to the input.
+              //var concept = createPanelItemNew(targetdiv, convertNodeToConcept(current_child));
+console.log("NEW CHILD!");
+              //Set the flag indicating we had a leaf node.
+              foundLeafNode = true;
+          }
+      }
+    }
+    else {
+    	console.log("Add leaf")
+    }
+	
+}
+
+
 function dropOntoCategorySelection2(source, e, data, targetdiv)
 {
+	console.log("dropOntoCategorySelection2");
     //Node must be folder so use children leafs
     if(data.node.leaf==false)
     {
-
+//    	getAllChildNodes(data,targetdiv);
         //Keep track of whether the folder has any leaves.
         var foundLeafNode = false
 

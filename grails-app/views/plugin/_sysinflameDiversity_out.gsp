@@ -8,10 +8,9 @@
 
     <g:each var="location" in="${imageLocations}">
         <a onclick="window.open('${resource(file: location, dir: "images")}', '_blank')">
-            <g:img file="${location}" class="img-result-size"></g:img>
+            <g:img style="height=10%" file="${location}" class="img-result-size_sysinflame"></g:img>
         </a>
     </g:each>
-
     <div>
         <a href="${resource(file: zipLink)}" class="downloadLink">Download raw R data</a>
     </div>

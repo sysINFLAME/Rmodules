@@ -34,16 +34,18 @@ class SysinflameDiversityController {
 log.warn('CONTROLLER')
     //Gather the image links.
     RModulesOutputRenderService.initializeAttributes(jobName,"sysinflameDiversity",imageLinks)
-
+	String textString = "asdasd";
     String tempDirectory = RModulesOutputRenderService.tempDirectory
-
+	log.warn("jobName: " + jobName)
+	log.warn(imageLinks)
     //Traverse the temporary directory for the LinearRegression files.
     def tempDirectoryFile = new File(tempDirectory)
 
     render(template: "/plugin/sysinflameDiversity_out", 
         model:[
           imageLocations:imageLinks,
-          zipLink:RModulesOutputRenderService.zipLink
+          zipLink:RModulesOutputRenderService.zipLink,
+		  text:textString
         ],
         contextPath:pluginContextPath)
 
