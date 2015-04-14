@@ -86,7 +86,7 @@ Diversity.loader <- function(
   
   
 
-  CairoPNG(file=paste("Bild2",".png"), width=800, height=800,units = "px")  
+  CairoPNG(file=paste("Bild2",".png",sep=""), width=800, height=800,units = "px")  
   
   print(p1 + theme_bw())
   
