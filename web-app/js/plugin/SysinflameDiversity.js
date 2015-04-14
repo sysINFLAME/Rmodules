@@ -22,7 +22,8 @@ SysinflameDiversityView.prototype.constructor = SysinflameDiversityView;
 SysinflameDiversityView.prototype.submit_job = function (form) {
     var variablesMicrobiomCode = readConceptVariables("divDataNode");
     var variableCensorEleCode = readConceptVariables("divCategoryVariable");
-    
+    var variablechkGroupIndex = form.correlationType.value;
+    console.log("ture? " + form.correlationType.value);
     var metabolomEle = Ext.get("divDataNode");
     var censorEle = Ext.get("divCategoryVariable");
     var rnaseqVal = variablesMicrobiomCode;
@@ -33,8 +34,20 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
     var formParams = {
     	jobType: 'sysinflameDiversity',
         variablesMicrobiomConceptPaths:variablesMicrobiomCode,
-        variablesCensorConceptPaths:variableCensorEleCode
+        variablesCensorConceptPaths:variableCensorEleCode,
+        chkGroupIndex:variablechkGroupIndex
     };
+    
+    
+    if(variablesMicrobiomCode == '')
+    {
+        Ext.Msg.alert('Missing input!', 'Please drag Microbiome-Data into the variables box.');
+        return;
+    }
+    else if (variableCensorEleCode == ''){
+    	 Ext.Msg.alert('Missing input!', 'Please drag categorical variables into the variables box.');
+         return;
+    }
     //If the list of concepts we are running the analysis on is empty, alert the user.
 //    if(censorEle.dom.childNodes.length > 1 || metabolomEle.dom.childNodes.length > 1)
 //    {

@@ -1,9 +1,36 @@
 Diversity.loader <- function(
   input.filename,
+  input.mode, 
   output.file="Diversity",
   output.name="Diversity"
 )
 {
+
+  ##Welcher Diversity Modus soll verwendet werden? Shannon oder Simpson?
+  
+switch(input.mode, 
+	shannon={
+  		mode.main="Alpha-diversity Shannon-Index"
+      	mode.ylab="Shannon-Index"
+},
+	simpson={
+  		mode.main="Alpha-diversity Simpson-Index"
+      	mode.ylab="Simpson-Index"
+},
+{
+    	mode.main="Alpha-diversity DEFAULT-Index"
+      	mode.ylab="DEFAULT-Index"
+}
+)
+  
+ # if (input.mode=='shannon'){
+ # mode.main="Alpha-diversity Shannon-Index"
+ # mode.ylab="Shannon-Index"
+ # }
+ # else if (input.mode=='simpson'){
+ # mode.main="Alpha-diversity Simpson-Index"
+ # mode.ylab="Simpson-Index"
+ # }
   ######################################################
   library(Cairo)
   ######################################################
@@ -69,18 +96,19 @@ Diversity.loader <- function(
   
   #Berechnen des Shannon-index
   
-  shannon <- diversity(Microbiom_table, index = "shannon")
+  shannon <- diversity(Microbiom_table, index = input.mode)
+  #shannon <- diversity(Microbiom_table, index = "simpson")
   
   
   Metadaten <- data.frame(input[,3],shannon)
   colnames(Metadaten)<-c("meta","shannon")
   
-  p1<-qplot(Metadaten$meta, Metadaten$shannon, data = Metadaten, geom = c( "jitter", "boxplot"), colour=I("black"), fill=I("lightgreen"), main= "Alpha-diversity Shannon-Index", face="bold",ylab="Shannon-Index", xlab="")
+  p1<-qplot(Metadaten$meta, Metadaten$shannon, data = Metadaten, geom = c( "jitter", "boxplot"), colour=I("black"), fill=I("lightgreen"), main= mode.main, face="bold",ylab=mode.ylab, xlab="")
   
   
   CairoPNG(file=paste("Bild1",".png",sep=""), width=800, height=800,units = "px")  
   
-  barplot(shannon, las=2, cex.names=0.5, col="steelblue", main="Alpha-diversity Shannon-Index")
+  barplot(shannon, las=2, cex.names=0.5, col="steelblue", main=mode.main)
   
   dev.off()
   

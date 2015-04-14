@@ -78,7 +78,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
                 rStatements: RStatements,
                 studyName: studyName,
                 params: params,
-                extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME])
+                extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME, $chkGroupIndex:params.chkGroupIndex])
 
         steps
     }
@@ -88,10 +88,12 @@ class SysinflameDiversity extends AbstractAnalysisJob {
     @Override
     protected List<String> getRStatements() {
 	log.warn('GETRGETR')
+	log.warn("chkGroupIndexchkGroupIndexchkGroupIndex: " + params.chkGroupIndex)
         [   
 			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader_CK.R')''',
 			 '''Diversity.loader(
              input.filename = '$inputFileName',
+			 input.mode = '$chkGroupIndex'
              )'''
         ]
     }
