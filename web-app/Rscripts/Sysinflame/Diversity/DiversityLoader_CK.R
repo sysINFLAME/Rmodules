@@ -17,12 +17,16 @@ switch(input.mode,
   		mode.main="Alpha-diversity Simpson-Index"
       	mode.ylab="Simpson-Index"
 },
+	invsimpson={
+  		mode.main="Alpha-diversity Inverse-Simpson-Index"
+      	mode.ylab="Inverse-Simpson-Index"
+},
 {
     	mode.main="Alpha-diversity DEFAULT-Index"
       	mode.ylab="DEFAULT-Index"
 }
 )
-  
+  #invsimpson
  # if (input.mode=='shannon'){
  # mode.main="Alpha-diversity Shannon-Index"
  # mode.ylab="Shannon-Index"

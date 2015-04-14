@@ -67,6 +67,7 @@
                 <select id = "correlationType">
                     <option value="shannon">Shannon</option>
                     <option value="simpson">Simpson</option>
+                    <option value="invsimpson">Inverse Simpson</option>
                 </select>
             <input type="button" value="Run" onClick="sysinflameDiversityView.submit_job(this.form);" class="runAnalysisBtn">
         </fieldset>
