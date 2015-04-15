@@ -23,7 +23,7 @@
             <div class="left">
                 <fieldset class="inputFields">
                     <div class="highDimContainer">
-                        <h3>Microbiom</h3>
+                        <h3>Microbiome</h3>
                         <div class="divInputLabel">Select a microbiome on which you would like to do the analysis and
                         drag it into the box. This variable is required.</div>
                         <div id='divDataNode' class="queryGroupIncludeLong divInputBox"></div>
@@ -48,8 +48,8 @@
             <div class="right">
                 <fieldset class="inputFields">
                     <h3>Variable</h3>
-                    <div class="divInputLabel">Select the appropriate numeric variable and drag it into the box. For
-                    example, "BMI".
+                    <div class="divInputLabel">Select the appropriate categorical variables and drag them into the box. For
+                    example, "SEX".
                     This variable is  required.	</div>
                     <div id='divCategoryVariable' class="queryGroupIncludeLong divInputBox"></div>
                     <div class="highDimBtns">
@@ -59,7 +59,7 @@
             </div>
         </div>
 
- %{-- ************************************************************************************************* --}%
+ 		%{-- ************************************************************************************************* --}%
         %{-- Tool Bar --}%
         %{-- ************************************************************************************************* --}%
         <fieldset class="toolFields">

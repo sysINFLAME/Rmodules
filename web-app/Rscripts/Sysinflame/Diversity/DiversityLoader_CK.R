@@ -101,7 +101,6 @@ switch(input.mode,
   #Berechnen des Shannon-index
   
   shannon <- diversity(Microbiom_table, index = input.mode)
-  #shannon <- diversity(Microbiom_table, index = "simpson")
   
   
   Metadaten <- data.frame(input[,3],shannon)
