@@ -3,7 +3,7 @@
 #This will load our input files into variables so we can run the correlation.
 ###########################################################################
 
-Correlation.loader <- function(
+Phenomap.loader <- function(
 	input.filename,
 	output.file="Correlation",
 	correlation.by = "",

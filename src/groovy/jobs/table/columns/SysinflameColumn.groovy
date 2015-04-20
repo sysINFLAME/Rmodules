@@ -1,13 +1,21 @@
-package jobs.table.columns;
+package jobs.table.columns
 
 import com.google.common.collect.ImmutableMap
+
 import groovy.transform.CompileStatic
-import jobs.steps.helpers.ColumnConfigurator
+
 import org.transmartproject.core.dataquery.clinical.ClinicalVariableColumn
 import org.transmartproject.core.dataquery.clinical.PatientRow
 import org.transmartproject.core.exceptions.InvalidArgumentsException
+
+/**
+ * Column that supports an arbitrary number of numeric clinical variables
+ * and collects the values under a map where the keys are configurable
+ * via the provided clinical variable -> string map.
+ */
 @CompileStatic
-public class SysinflameColumn extends AbstractColumn {
+class SysinflameColumn extends AbstractColumn {
+
 	/* clinical variable -> name of the group */
 	Map<ClinicalVariableColumn, String> clinicalVariables
 
@@ -31,10 +39,13 @@ public class SysinflameColumn extends AbstractColumn {
 				ImmutableMap.builder()
 
 		clinicalVariables.each { ClinicalVariableColumn col,
-								 String groupName ->
+			String groupName ->
+//			log.warn "groupname "+ groupName + " " +col
 			def value = lastRow.getAt col
+			if (value == groupName) {
+				groupName = generateGroupNameForStrings col.getLabel()
+			}
 			if (value != null) {
-				validateNumber col, value
 				builder.put groupName, value
 			}
 		}
@@ -46,6 +57,15 @@ public class SysinflameColumn extends AbstractColumn {
 				builder.build())
 	}
 
+	/**
+	 * This will generate a more superior group for strings where the VALUE == GROUP
+	 * @param conceptPath
+	 * @return
+	 */
+	private String generateGroupNameForStrings(String conceptPath) {
+		/* find 2nd last non-empty segment (separated by \) */
+		conceptPath.split('\\\\').findAll()[-2]
+	}
 	private void validateNumber(ClinicalVariableColumn col, Object value) {
 	}
 }

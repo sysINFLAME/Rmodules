@@ -2,12 +2,16 @@ package jobs
 
 import jobs.steps.*
 import jobs.steps.helpers.CategoricalColumnConfigurator;
+import jobs.steps.helpers.ColumnConfigurator
 import jobs.steps.helpers.GroupNamesHolder
-import jobs.steps.helpers.MultiNumericClinicalVariableColumnConfigurator
+import jobs.steps.helpers.SysinflameMultiNumericClinicalVariableColumnConfigurator
 import jobs.steps.helpers.SimpleAddColumnConfigurator
+import jobs.steps.helpers.SysinflameResultInstanceIdsHolder;
 import jobs.table.Table
+import jobs.table.columns.ConstantValueColumn
 import jobs.table.columns.PrimaryKeyColumn
 
+import org.codehaus.groovy.grails.web.i18n.ParamsAwareLocaleChangeInterceptor;
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
@@ -21,11 +25,12 @@ import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 @Scope('job')
 class SysinflameDiversity extends AbstractAnalysisJob {
     
+	
 	@Autowired
     SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
     @Autowired
-    MultiNumericClinicalVariableColumnConfigurator columnConfigurator
+    SysinflameMultiNumericClinicalVariableColumnConfigurator columnConfigurator
 	
 	@Autowired
 	CategoricalColumnConfigurator columnConfigurator2
@@ -37,17 +42,19 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 
     @PostConstruct
     void init() {
-		
+//		params.putAt('instanceID','result_instance_id1')
+//		log.warn(params.result_instance_id2)
+//		params.result_instance_id2=1234
+		log.warn(params)
     	primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
-
+		
 		columnConfigurator.header = 'MICROBIOME'
 		columnConfigurator.keyForConceptPaths = 'variablesMicrobiomConceptPaths'
 		columnConfigurator.groupNamesHolder = holder
-		
-		
 		columnConfigurator2.header = 'CATEGORY'
 		columnConfigurator2.keyForConceptPaths = 'variablesCensorConceptPaths'
 //		columnConfigurator2.groupNamesHolder = holder
+		
     }
 	
 

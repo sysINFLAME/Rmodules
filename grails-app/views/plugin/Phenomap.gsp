@@ -26,7 +26,7 @@
  <div id='divCategoryVariable' class="queryGroupIncludeLong divInputBox"></div>
 
                 <div class="highDimBtns">
-                    <button type="button" onclick="phenoMapView.clear_high_dimensional_input('divCatagoryVariable')">Clear</button>
+                    <button type="button" onclick="phenoMapView.clear_high_dimensional_input('divCategoryVariable')">Clear</button>
                 </div>
 </div>
 

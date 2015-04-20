@@ -12,7 +12,7 @@ import org.transmartproject.core.dataquery.clinical.ClinicalVariableColumn
 
 @Component
 @Scope('prototype')
-class SysinflameMultiCategoricalClinicalVariableColumnConfigurator extends ColumnConfigurator {
+class SysinflameMultiNumericClinicalVariableColumnConfigurator extends ColumnConfigurator {
 
     String keyForConceptPaths
 
@@ -31,16 +31,18 @@ class SysinflameMultiCategoricalClinicalVariableColumnConfigurator extends Colum
         List<ClinicalVariable> variables = getConceptPaths().collect {
             clinicalDataRetriever.createVariableFromConceptPath it
         }
+
         variables = variables.collect {
             clinicalDataRetriever << it
         }
-//		log.warn("variablesvariablesvariables " + variables)
+		log.warn("variablesvariablesvariables " + variables)
         clinicalDataRetriever.attachToTable table
 
         Map<ClinicalVariableColumn, String> variableToGroupName =
                 Functions.inner(variables,
                         conceptPaths.collect { generateGroupName it },
-                        { a, b -> [a,b]}).collectEntries()
+                        { a, b -> [a,b]}).
+                        collectEntries()
 
         if (groupNamesHolder) {
             groupNamesHolder.groupNames = variableToGroupName.values() as List
@@ -59,10 +61,9 @@ class SysinflameMultiCategoricalClinicalVariableColumnConfigurator extends Colum
     }
 
     private String generateGroupName(String conceptPath) {
-//		log.warn "CONCEPT "+ conceptPath
-		        if (pruneConceptPath)  {
+        if (pruneConceptPath)  {
             /* find last non-empty segment (separated by \) */
-//			log.warn(conceptPath.split('\\\\').findAll()[-1])
+			log.warn(conceptPath.split('\\\\').findAll()[-1])
             conceptPath.split('\\\\').findAll()[-1]
         } else {
             conceptPath
