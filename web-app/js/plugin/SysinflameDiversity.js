@@ -62,8 +62,16 @@ SysinflameDiversityView.prototype.submit_job = function (form) {
 console.warn('submitjob@JS')
     submitJob(formParams);
 }
+//analysisOutput
 
-
+SysinflameDiversityView.printPreview = function(content) {
+	var stylesheet = "<html><head><link rel='stylesheet' type='text/css' href='../css/chartservlet.css'></head><body>";
+	var generator = window.open('', 'name', 'height=400,width=500, resizable=yes, scrollbars=yes');
+	var printbutton = "<input type='button' value=' Print this page 'onclick='window.print();return false;' />";
+    //var savebutton = "<input type='button' value='Save'  onclick='document.execCommand(\"SaveAs\",null,\".html\")' />";
+    generator.document.write(stylesheet + printbutton + content);
+	generator.document.close();
+}
 
 // init heat map view instance
 var sysinflameDiversityView = new SysinflameDiversityView();

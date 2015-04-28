@@ -88,7 +88,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 	@Override
 	protected List<String> getRStatements() {
 		[
-			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader_CK.R')''',
+			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader_MR.R')''',
 			'''Diversity.loader(
              input.filename = '$inputFileName',
 			 input.mode = '$chkGroupIndex'
