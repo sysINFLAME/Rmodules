@@ -28,7 +28,11 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 	void execute() {
 
 		try {
+
+
 			withDefaultCsvWriter { CSVWriter it ->
+				gatherData()
+
 				writeHeader it
 
 				writeMeat it
@@ -50,7 +54,7 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 		writer.writeNext(getHeader() as String[])
 	}
 
-	void writeMeat(CSVWriter writer) {
+	void gatherData() {
 		//1102, [[key,value],[key2,value2]]
 		HashMap<String, LinkedList<HashMap<String,Object>>> newMap = new HashMap<String, LinkedList<HashMap<String,Object>>>()
 
@@ -90,7 +94,6 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 					newList.add(tmp)
 					newMap.put(patID,newList)
 				}
-
 			}
 		}
 		//		println "HEADER: " + header
@@ -114,7 +117,9 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 			}
 			outList.add(out)
 		}
-		
+	}
+
+	void writeMeat(CSVWriter writer) {
 		outList.each {
 			writer.writeNext(it as String[])
 		}

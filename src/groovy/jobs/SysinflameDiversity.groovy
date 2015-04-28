@@ -24,90 +24,80 @@ import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 @Component
 @Scope('job')
 class SysinflameDiversity extends AbstractAnalysisJob {
-    
-	
-	@Autowired
-    SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
-    @Autowired
-    SysinflameMultiNumericClinicalVariableColumnConfigurator columnConfigurator
-	
+
+	@Autowired
+	SimpleAddColumnConfigurator primaryKeyColumnConfigurator
+
+	@Autowired
+	SysinflameMultiNumericClinicalVariableColumnConfigurator columnConfigurator
+
 	@Autowired
 	CategoricalColumnConfigurator columnConfigurator2
-	
-    @Autowired
-    Table table
 
-    GroupNamesHolder holder = new GroupNamesHolder()
+	@Autowired
+	Table table
 
-    @PostConstruct
-    void init() {
-//		params.putAt('instanceID','result_instance_id1')
-//		log.warn(params.result_instance_id2)
-//		params.result_instance_id2=1234
-		log.warn(params)
-    	primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
-		
+	GroupNamesHolder holder = new GroupNamesHolder()
+
+	@PostConstruct
+	void init() {
+		primaryKeyColumnConfigurator.column = new PrimaryKeyColumn(header: 'PATIENT_NUM')
+
 		columnConfigurator.header = 'MICROBIOME'
 		columnConfigurator.keyForConceptPaths = 'variablesMicrobiomConceptPaths'
 		columnConfigurator.groupNamesHolder = holder
+		
 		columnConfigurator2.header = 'CATEGORY'
 		columnConfigurator2.keyForConceptPaths = 'variablesCensorConceptPaths'
-//		columnConfigurator2.groupNamesHolder = holder
-		
-    }
-	
 
-    @Override
-    protected List<Step> prepareSteps() {
+	}
 
-        List<Step> steps = []
 
-        steps << new ParametersFileStep(
-                temporaryDirectory: temporaryDirectory,
-                params: params)
+	@Override
+	protected List<Step> prepareSteps() {
 
-        steps << new BuildTableResultStep(
-                table: table,
-                configurators: [primaryKeyColumnConfigurator,columnConfigurator,columnConfigurator2]) //categoryVariableConfigurator,categoryVariableConfigurator
-//
-     
-		//MultiRowAsGroupDumpTableResultsStep 
-		//SimpleDumpTableResultStep
-				   steps << new SimpleDumpTableResultStep(
-                table: table,
-                temporaryDirectory: temporaryDirectory,
-                outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-        
-        steps << new RCommandsStep(
-                temporaryDirectory: temporaryDirectory,
-                scriptsDirectory: scriptsDirectory,
-                rStatements: RStatements,
-                studyName: studyName,
-                params: params,
-                extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME, $chkGroupIndex:params.chkGroupIndex])
+		List<Step> steps = []
 
-        steps
-    }
+		steps << new ParametersFileStep(
+				temporaryDirectory: temporaryDirectory,
+				params: params)
 
-	
-    
-    @Override
-    protected List<String> getRStatements() {
-	log.warn('GETRGETR')
-	log.warn("chkGroupIndexchkGroupIndexchkGroupIndex: " + params.chkGroupIndex)
-        [   
+		steps << new BuildTableResultStep(
+				table: table,
+				configurators: [primaryKeyColumnConfigurator,columnConfigurator,columnConfigurator2]) //categoryVariableConfigurator,categoryVariableConfigurator
+
+		steps << new SimpleDumpTableResultStep(
+				table: table,
+				temporaryDirectory: temporaryDirectory,
+				outputFileName: DEFAULT_OUTPUT_FILE_NAME)
+
+		steps << new RCommandsStep(
+				temporaryDirectory: temporaryDirectory,
+				scriptsDirectory: scriptsDirectory,
+				rStatements: RStatements,
+				studyName: studyName,
+				params: params,
+				extraParams: [inputFileName: DEFAULT_OUTPUT_FILE_NAME, $chkGroupIndex:params.chkGroupIndex])
+
+		steps
+	}
+
+
+
+	@Override
+	protected List<String> getRStatements() {
+		[
 			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader_CK.R')''',
-			 '''Diversity.loader(
+			'''Diversity.loader(
              input.filename = '$inputFileName',
 			 input.mode = '$chkGroupIndex'
              )'''
-        ]
-    }
+		]
+	}
 
-    @Override
-    protected getForwardPath() {
-	log.warn('FORWARDPATH')
-    	 "/sysinflameDiversity/sysinflameDiversityOutput?jobName=$name"
-    }
+	@Override
+	protected getForwardPath() {
+		"/sysinflameDiversity/sysinflameDiversityOutput?jobName=$name"
+	}
 }

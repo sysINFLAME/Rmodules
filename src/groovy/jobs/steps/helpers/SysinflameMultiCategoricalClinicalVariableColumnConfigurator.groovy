@@ -29,12 +29,15 @@ class SysinflameMultiCategoricalClinicalVariableColumnConfigurator extends Colum
     @Override
     protected void doAddColumn(Closure<Column> decorateColumn) {
         List<ClinicalVariable> variables = getConceptPaths().collect {
+			println "IT: " + it
+//			it = it.replaceAll("\\\\","\\\\\\\\")+"%"
+//			println it
             clinicalDataRetriever.createVariableFromConceptPath it
         }
         variables = variables.collect {
             clinicalDataRetriever << it
         }
-//		log.warn("variablesvariablesvariables " + variables)
+		log.warn("variablesvariablesvariables " + variables)
         clinicalDataRetriever.attachToTable table
 
         Map<ClinicalVariableColumn, String> variableToGroupName =
@@ -59,7 +62,6 @@ class SysinflameMultiCategoricalClinicalVariableColumnConfigurator extends Colum
     }
 
     private String generateGroupName(String conceptPath) {
-//		log.warn "CONCEPT "+ conceptPath
 		        if (pruneConceptPath)  {
             /* find last non-empty segment (separated by \) */
 //			log.warn(conceptPath.split('\\\\').findAll()[-1])

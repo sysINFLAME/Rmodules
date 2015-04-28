@@ -35,7 +35,7 @@ class SysinflameMultiNumericClinicalVariableColumnConfigurator extends ColumnCon
         variables = variables.collect {
             clinicalDataRetriever << it
         }
-		log.warn("variablesvariablesvariables " + variables)
+		log.info("variablesvariablesvariables " + variables)
         clinicalDataRetriever.attachToTable table
 
         Map<ClinicalVariableColumn, String> variableToGroupName =
@@ -63,7 +63,6 @@ class SysinflameMultiNumericClinicalVariableColumnConfigurator extends ColumnCon
     private String generateGroupName(String conceptPath) {
         if (pruneConceptPath)  {
             /* find last non-empty segment (separated by \) */
-			log.warn(conceptPath.split('\\\\').findAll()[-1])
             conceptPath.split('\\\\').findAll()[-1]
         } else {
             conceptPath

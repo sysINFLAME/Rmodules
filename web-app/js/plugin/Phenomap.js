@@ -32,11 +32,11 @@ PhenoMapView.prototype.submit_job = function (form) {
     var variableEle = Ext.get("divCategoryVariable");
 
     //If the list of concepts we are running the analysis on is empty, alert the user.
-    if(variablesConceptCode == '' || (variableEle.dom.childNodes.length < 2))
-    {
-        Ext.Msg.alert('Missing input!', 'Please drag at least two concepts into the variables box.');
-        return;
-    }
+//    if(variablesConceptCode == '' || (variableEle.dom.childNodes.length < 2))
+//    {
+//        Ext.Msg.alert('Missing input!', 'Please drag at least two concepts into the variables box.');
+//        return;
+//    }
 
     submitJob(formParams);
 }

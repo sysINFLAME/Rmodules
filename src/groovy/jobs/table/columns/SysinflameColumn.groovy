@@ -40,7 +40,6 @@ class SysinflameColumn extends AbstractColumn {
 
 		clinicalVariables.each { ClinicalVariableColumn col,
 			String groupName ->
-//			log.warn "groupname "+ groupName + " " +col
 			def value = lastRow.getAt col
 			if (value == groupName) {
 				groupName = generateGroupNameForStrings col.getLabel()

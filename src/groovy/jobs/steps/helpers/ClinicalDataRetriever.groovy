@@ -57,8 +57,10 @@ class ClinicalDataRetriever {
     }
 
     ClinicalVariable createVariableFromConceptPath(String conceptPath) {
+		conceptPath = conceptPath 
         clinicalDataResource.createClinicalVariable(
-                ClinicalVariable.TERMINAL_CONCEPT_VARIABLE,
+//                ClinicalVariable.TERMINAL_CONCEPT_VARIABLE,
+			ClinicalVariable.TERMINAL_CONCEPT_VARIABLE,
                 concept_path: conceptPath)
     }
 

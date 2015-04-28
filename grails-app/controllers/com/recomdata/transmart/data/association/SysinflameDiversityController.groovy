@@ -31,13 +31,12 @@ class SysinflameDiversityController {
 
     //Grab the job ID from the query string.
     String jobName = params.jobName
-log.warn('CONTROLLER')
     //Gather the image links.
     RModulesOutputRenderService.initializeAttributes(jobName,"sysinflameDiversity",imageLinks)
 	String textString = "asdasd";
     String tempDirectory = RModulesOutputRenderService.tempDirectory
-	log.warn("jobName: " + jobName)
-	log.warn(imageLinks)
+	log.info("jobName: " + jobName)
+	log.info(imageLinks)
     //Traverse the temporary directory for the LinearRegression files.
     def tempDirectoryFile = new File(tempDirectory)
 

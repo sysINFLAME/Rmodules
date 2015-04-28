@@ -21,7 +21,6 @@ class BuildTableResultStep implements Step {
             }
 
             table.buildTable()
-			log.warn(table.columns)
         } catch (Exception e) {
             try {
 
