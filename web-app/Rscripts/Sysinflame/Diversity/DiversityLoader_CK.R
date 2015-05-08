@@ -1,3 +1,5 @@
+##@Author Carolin Knecht, Institut für Medizinische Informatik und Statistik, Universitätsklinikum Schleswig-Holstein Kiel
+##@Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de>
 Diversity.loader <- function(
   input.filename,
   input.mode, 
@@ -26,23 +28,12 @@ switch(input.mode,
       	mode.ylab="DEFAULT-Index"
 }
 )
-  #invsimpson
- # if (input.mode=='shannon'){
- # mode.main="Alpha-diversity Shannon-Index"
- # mode.ylab="Shannon-Index"
- # }
- # else if (input.mode=='simpson'){
- # mode.main="Alpha-diversity Simpson-Index"
- # mode.ylab="Simpson-Index"
- # }
   ######################################################
   library(Cairo)
-  ######################################################
-  
   library(vegan)
   library(ggplot2)
-  
   ######################################################
+  
   #Read the data.
   input<-read.delim(input.filename,header=T)
     
@@ -78,9 +69,6 @@ switch(input.mode,
     Microbiom_names[k]<-Microbiom_Vektor3[1]
   }
   
-  
-  
-  
   for(i in 1:length(Microbiom))
   {
     for(k in 1:Bakterienanzahl)
@@ -90,12 +78,10 @@ switch(input.mode,
     }
   }
   
-  
   Microbiom_table <- matrix(as.numeric(Microbiom_table), nrow=length(Microbiom), ncol=Bakterienanzahl)
   
   colnames(Microbiom_table)<-Microbiom_names
   rownames(Microbiom_table)<-input[,1]
-  
   
   
   #Berechnen des Shannon-index
@@ -115,8 +101,6 @@ switch(input.mode,
   
   dev.off()
   
-  
-
   CairoPNG(file=paste("Bild2",".png",sep=""), width=800, height=800,units = "px")  
   
   print(p1 + theme_bw())

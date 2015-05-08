@@ -1,5 +1,8 @@
-## Ohne Wert fÃ¼r Input Mode -> Shannon als Standard; auch wenn input mode nicht in der u.g. liste
-###Alternativen fÃ¼r Input.Mode: "shannon", "simpson", "invsimpson", "chao1", "obs" oder "ACE"
+##@Author Carolin Knecht, Institut für Medizinische Informatik und Statistik, Universitätsklinikum Schleswig-Holstein Kiel
+##@Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de>
+##@Author Malte Rühlemann, Institute of Clinical Molecular Biology, Christian-Albrechts-University Kiel
+## Ohne Wert für Input Mode -> Shannon als Standard; auch wenn input mode nicht in der u.g. liste
+## Alternativen für Input.Mode: "shannon", "simpson", "invsimpson", "chao1", "obs" oder "ACE"
 
 Diversity.loader <- function(
   input.filename,
@@ -21,11 +24,8 @@ Diversity.loader <- function(
  # }
   ######################################################
   library(Cairo)
-  ######################################################
-  
   library(vegan)
   library(ggplot2)
-  
   ######################################################
   
   
@@ -124,8 +124,6 @@ switch(input.mode,
       	div <- diversity(Microbiom_table, index = "shannon")
 }
 )
-  
-
 
   CairoPNG(file=paste("Bild1",".png",sep=""), width=800, height=800,units = "px")  
   
@@ -146,8 +144,5 @@ switch(input.mode,
   print(p1 + theme_bw())
   
   dev.off()
-
-  
-  ######################################################
 }
 
