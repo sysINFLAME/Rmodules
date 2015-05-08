@@ -1,3 +1,6 @@
+<!--  
+ @Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de> 
+-->
 %{--include js lib for heatmap dynamically--}%
 <r:require modules="sysinflameDiversity" />
 <r:layoutResources disposition="defer" />
@@ -79,20 +82,18 @@
 		*************************************************************************************************
 		--}%
 		<fieldset class="toolFields">
-			Correlation Type 
-			<select id="correlationType">
+			Correlation Type <select id="correlationType">
 				<option value="shannon">Shannon</option>
 				<option value="simpson">Simpson</option>
 				<option value="invsimpson">Inverse Simpson</option>
 				<option value="chao1">Chao1</option>
 				<option value="obs">OBS</option>
 				<option value="ACE">ACE</option>
-				
-			</select> 
-			<input type="button" value="Run"
+
+			</select> <input type="button" value="Run"
 				onClick="sysinflameDiversityView.submit_job(this.form);"
 				class="runAnalysisBtn">
-				<!--  	<input type="button" value="Print"
+			<!--  	<input type="button" value="Print"
 				onClick="sysinflameDiversityView.printPreview(this.form);"
 				class="printAnalysisBtn">-->
 		</fieldset>

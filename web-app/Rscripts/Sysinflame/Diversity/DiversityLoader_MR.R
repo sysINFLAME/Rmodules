@@ -1,5 +1,8 @@
-## Ohne Wert fÃ¼r Input Mode -> Shannon als Standard; auch wenn input mode nicht in der u.g. liste
-###Alternativen fÃ¼r Input.Mode: "shannon", "simpson", "invsimpson", "chao1", "obs" oder "ACE"
+##@Author Carolin Knecht, Institut für Medizinische Informatik und Statistik, Universitätsklinikum Schleswig-Holstein Kiel
+##@Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de>
+##@Author Malte Rühlemann, Institute of Clinical Molecular Biology, Christian-Albrechts-University Kiel
+## Ohne Wert für Input Mode -> Shannon als Standard; auch wenn input mode nicht in der u.g. liste
+## Alternativen für Input.Mode: "shannon", "simpson", "invsimpson", "chao1", "obs" oder "ACE"
 
 Diversity.loader <- function(
   input.filename,

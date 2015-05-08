@@ -19,8 +19,9 @@ import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
 import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
-
-
+/**
+ *@Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de> 
+ */
 @Component
 @Scope('job')
 class SysinflameDiversity extends AbstractAnalysisJob {
@@ -47,7 +48,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 		columnConfigurator.header = 'MICROBIOME'
 		columnConfigurator.keyForConceptPaths = 'variablesMicrobiomConceptPaths'
 		columnConfigurator.groupNamesHolder = holder
-		
+
 		columnConfigurator2.header = 'CATEGORY'
 		columnConfigurator2.keyForConceptPaths = 'variablesCensorConceptPaths'
 
