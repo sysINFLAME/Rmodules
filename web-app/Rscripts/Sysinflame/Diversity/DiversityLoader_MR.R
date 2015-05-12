@@ -1,6 +1,8 @@
 ##@Author Carolin Knecht, Institut für Medizinische Informatik und Statistik, Universitätsklinikum Schleswig-Holstein Kiel
 ##@Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de>
 ##@Author Malte Rühlemann, Institute of Clinical Molecular Biology, Christian-Albrechts-University Kiel
+
+
 ## Ohne Wert für Input Mode -> Shannon als Standard; auch wenn input mode nicht in der u.g. liste
 ## Alternativen für Input.Mode: "shannon", "simpson", "invsimpson", "chao1", "obs" oder "ACE"
 
@@ -12,26 +14,14 @@ Diversity.loader <- function(
 )
 {
 
-
-  #invsimpson
- # if (input.mode=='shannon'){
- # mode.main="Alpha-diversity Shannon-Index"
- # mode.ylab="Shannon-Index"
- # }
- # else if (input.mode=='simpson'){
- # mode.main="Alpha-diversity Simpson-Index"
- # mode.ylab="Simpson-Index"
- # }
   ######################################################
   library(Cairo)
   library(vegan)
   library(ggplot2)
   ######################################################
   
-  
 input<-read.delim(input.filename,header=T)
   
-
   ##Erstellen der Column-Row-Matrix
   Microbiom <- input[,2]
   summary(Microbiom)
@@ -64,9 +54,6 @@ input<-read.delim(input.filename,header=T)
     Microbiom_names[k]<-Microbiom_Vektor3[1]
   }
   
-  
-  
-  
   for(i in 1:length(Microbiom))
   {
     for(k in 1:Bakterienanzahl)
@@ -76,16 +63,14 @@ input<-read.delim(input.filename,header=T)
     }
   }
   
-  
   Microbiom_table <- matrix(as.numeric(Microbiom_table), nrow=length(Microbiom), ncol=Bakterienanzahl)
   
   colnames(Microbiom_table)<-Microbiom_names
   rownames(Microbiom_table)<-input[,1]
   
-  
   ##Welcher Diversity Modus soll verwendet werden? Shannon oder Simpson?
   ### Default von "diversity()" ist shannon 
-  #Berechnen des diversity index abhÃ¤ngig von input.mode
+  #Berechnen des diversity index abhängig von input.mode
   
 switch(input.mode, 
 	shannon={
