@@ -26,15 +26,11 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 
 	@Override
 	void execute() {
-
 		try {
-
-
 			withDefaultCsvWriter { CSVWriter it ->
 				gatherData()
-
 				writeHeader it
-
+				
 				writeMeat it
 			}
 		} finally {
@@ -45,6 +41,9 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 	protected List<String> getHeaders() {
 		table.headers
 	}
+	
+	
+	
 
 	protected Iterator getMainRows() {
 		table.result.iterator()
@@ -66,20 +65,13 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 			"Number of patients dropped owing to mismatched " +
 			"data: ${table.droppedRows}")
 		}
-		//		println "TABLE RESULT: " + table.getResult()
 		rows.each {
 			ArrayList inputArray = it
-			//			println "ArrayList " + inputArray
-			//			println "+++"
 			String patID = inputArray.get(0)
 			if (!patients.contains(patID))
 				patients.add(patID)
-			//			println "PATID: " + patID
 			Map<String, Object> arrayMap = inputArray.get(1)
-			//			println "test.each " + arrayMap
 			arrayMap.each {
-				//				println "IT: " +it.key
-				//				println "IT: " +it.value
 
 				if (!header.contains(it.key))
 					header.add(it.key)
@@ -96,9 +88,6 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 				}
 			}
 		}
-		//		println "HEADER: " + header
-		//		println "PATIENTS: " + patients
-		//		println "NEWMAP: " + newMap
 
 		patients.each {
 			String patID = it
