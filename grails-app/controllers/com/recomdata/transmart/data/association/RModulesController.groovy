@@ -141,6 +141,9 @@ log.info('SWITCH' + params['analysis'])
             case 'sysinflameDiversity':
                 jsonResult = createJob(params, SysinflameDiversity, false)
                 break
+			case 'sysinflameOutlier':
+				jsonResult = createJob(params, SysinflameOutlier, false)
+				break
             default:
                 jsonResult = RModulesService.scheduleJob(
                         springSecurityService.principal.username, params)
