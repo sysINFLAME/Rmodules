@@ -1,23 +1,33 @@
 ######
 #R- Code zur Erkennung von Ausreiﬂern zur Implementierung in TranSMART
 #
-#Programmiert von Carolin Knecht (2015)
+#Carolin Knecht (2015)
 #
-#
+#Weiterabgabe an Dritte bitte nur nach Absprache!
 ######
 
 Extremwerte.loader <- function(
   input.filename,
-  Spaltenname,
   output.file="Extremwerte",
   output.name="Extremwerte"
 )
 {
-  
+#benˆtigte Pakete
+library(Cairo)
+library(gridExtra)
 library(outliers) 
+library(calibrate)
 #Daten werten eingelesen
 input<-read.delim(input.filename,header=T)
-Werte <- input[[Spaltenname]]
+
+
+Spalten <- dim(input)[2]
+
+Ausgabe <- data.frame(Spaltenname="",Samples="",Extremwerte="",Methode="",Bemerkung="")
+
+for(l in 2:Spalten)
+{  
+Werte <- input[,l]
 sortiert <- sort(Werte)
 Sample <- input[,1]
 Eingabe <- data.frame(Sample,Werte)
@@ -52,7 +62,7 @@ switch(Methode,
             }
          if(sum(sortiert)==0)
          {
-           Bemerkung <- "Achtung, nur noch Nullen in den Daten" 
+           Bemerkung <- "Achtung, nur noch Nullen in den Daten!" 
          } else
          {
            Bemerkung <-""
@@ -78,7 +88,7 @@ switch(Methode,
          }
          if(sum(sortiert)==0)
          {
-           Bemerkung <- "Achtung, nur noch Nullen in den Daten" 
+           Bemerkung <- "Achtung, nur noch Nullen in den Daten!" 
          }         else
          {
            Bemerkung <-""
@@ -93,7 +103,7 @@ switch(Methode,
          Methode <- "Standardisierte Extremwertabweichung"
          if(sum(sortiert)==0)
          {
-           Bemerkung <- "Achtung, nur noch Nullen in den Daten" 
+           Bemerkung <- "Achtung, nur noch Nullen in den Daten!" 
          }         else
          {
            Bemerkung <-""
@@ -112,7 +122,7 @@ switch(Methode,
         Methode <- "Standardisierte Extremwertabweichung"
         if(sum(sortiert)==0)
         {
-          Bemerkung <- "Achtung, nur noch Nullen in den Daten" 
+          Bemerkung <- "Achtung, nur noch Nullen in den Daten!" 
         }        else
         {
           Bemerkung <-""
@@ -121,30 +131,61 @@ switch(Methode,
 )
 
 #Extremwerte werden bestimmt
-extremwerte<-setdiff(Werte,sortiert)
-paste(extremwerte)
+welche.extremwerte <- which(is.element(Werte,sortiert))
+extremwerte<-Werte[-welche.extremwerte]
+
+Extremwerte<- paste(extremwerte,collapse=",")
 laenge <- length(extremwerte)
 
 if(laenge==0)
 {
-  extremwerte = "Keine Ausreiﬂer"
+  Extremwerte = "Keine Ausreisser"
 }
-  
+
+Spaltenname <-colnames(input[l])
+Patienten <- 1:17
+
+#Hier kommt der Plotaufruf
 if(laenge!=0)
 {
-Samples <- Eingabe[Eingabe$Werte  %in% extremwerte,c("Sample","Werte")]
-colnames(Samples) <- c("Sample","Extremwerte")
+Samples <- Eingabe[Eingabe$Werte  %in% extremwerte,c("Sample")]
+Samples <- paste(Samples,collapse=",")
+Sampleplot <-Eingabe[Eingabe$Werte  %in% extremwerte,c("Sample")] 
+
+CairoPNG(file=paste("Bild",Spaltenname,".png",sep=""), width=800, height=400,units = "px")  
+welche.Werte_ohneExtrem <- which(is.element(Werte,extremwerte))
+Werte_ohneExtrem<-Werte[-welche.Werte_ohneExtrem]
+stripchart(Werte,cex=2 ,pch=16,col="white",method="jitter", xlab=Spaltenname, cex.lab=1.5)
+stripchart(Werte_ohneExtrem,cex=2 ,pch=16,col="steelblue",method="jitter", add=T)
+stripchart(extremwerte, cex=2, pch=16,method="stack", col="darkred", add=T)
+n <- 1.05
+p <- (range(Werte)[2]-range(Werte)[1])/15
+for(i in 1:length(extremwerte))
+{
+textxy(extremwerte[i]-p, n,Sampleplot[i], cx=0.8)
+n <- n-0.05
+}
+dev.off()
+
 } else 
 {
-  Samples <- data.frame(Samples="",Extremwerte=extremwerte)
+  Samples <- ""
+  CairoPNG(file=paste("Bild",Spaltenname,".png",sep=""), width=800, height=400,units = "px")  
+  stripchart(Werte,cex=2 ,pch=16,col="steelblue",method="jitter", xlab=Spaltenname, cex.lab=1.5)
+  dev.off()
 }
 
-Ausgabe <- data.frame(Samples,Methode,Bemerkung)
+
+
+Ausgabe_einzel <- data.frame(Spaltenname,Samples,Extremwerte,Methode,Bemerkung)
+Ausgabe <- rbind(Ausgabe,Ausgabe_einzel)
 #Hier wird das ganze Ausgegeben
-write.table(Ausgabe,file="Ausgabe.csv", sep=";", dec=",", row.names=F,quote=F)
-
-
-
 }
-
-
+Ausgabe <- Ausgabe[-1,]
+rownames(Ausgabe) <- Ausgabe$Spaltenname
+write.table(Ausgabe,file="Ausgabe.csv", sep=";", dec=",", row.names=F,quote=F)
+Ausgabe <- Ausgabe[,-1]
+pdf("Ausgabe.pdf", 10,Spalten-4)
+grid.table(Ausgabe)
+dev.off()
+}

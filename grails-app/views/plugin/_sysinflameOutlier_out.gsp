@@ -4,14 +4,16 @@
  */
 -->
 
-<h2>Alpha-Diversity</h2>
-
+<h2>Outlier</h2>
+ <p>${outlierData}</p>
 <p>
-<div class="plot_hint">
-	Click on the image to open it in a new window as this may increase
-	readability. <br>
-	<br>
-</div>
+<br>
+<br>
+<br>
+<%--<div class="plot_hint">--%>
+<%--	Click on the image to open it in a new window as this may increase--%>
+<%--	readability. --%>
+<%--</div>--%>
 
 <g:each var="location" in="${imageLocations}">
 	<a

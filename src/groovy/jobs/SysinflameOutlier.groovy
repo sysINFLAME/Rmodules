@@ -84,11 +84,9 @@ class SysinflameOutlier extends AbstractAnalysisJob {
 		[
 			'''source('$pluginDirectory/Sysinflame/Outlier/Outlier.R')''',
 			'''Extremwerte.loader(
-			 input.filename = '$inputFileName',
-			 Spaltenname='AGE'
+			 input.filename = '$inputFileName'
              )'''
 		]
-		//TODO Spaltenname raus
 	}
 
 	@Override

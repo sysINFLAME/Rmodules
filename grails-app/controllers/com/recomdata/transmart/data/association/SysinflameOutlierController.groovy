@@ -41,14 +41,62 @@ class SysinflameOutlierController {
 		log.info(imageLinks)
 		//Traverse the temporary directory for the LinearRegression files.
 		def tempDirectoryFile = new File(tempDirectory)
+		String correlationLocation = "${tempDirectory}" + File.separator + "Ausgabe.csv"
+		String outlierData = RModulesOutputRenderService.fileParseLoop(tempDirectoryFile,/.*Ausgabe.*\.csv/,/.*Ausgabe.*\.csv/,parseCorrelationFile)
+		render(template: "/plugin/sysinflameOutlier_out", 
+			model:[outlierData:outlierData,
+				imageLocations:imageLinks,
+				zipLink:RModulesOutputRenderService.zipLink],
+			contextPath:pluginContextPath)
 
-		render(template: "/plugin/sysinflameOutlier_out",
-		model:[
-			imageLocations:imageLinks,
-			zipLink:RModulesOutputRenderService.zipLink
-		],
-		contextPath:pluginContextPath)
-
+	}
+	def parseCorrelationFile = {
+		inStr ->
+		
+		StringBuffer buf = new StringBuffer();
+		//Create the opening table tag.
+		buf.append("<table class='AnalysisResults'>")
+		//This is a line counter.
+		Integer lineCounter = 0;
+		//This is the string array with all of our variables.
+		String[] variablesArray = []
+		int columns = 0;
+		inStr.eachLine {
+			println it;
+			//The first line has a list of the variables.
+			if(lineCounter == 0) {
+				variablesArray = it.split(";");
+				columns = variablesArray.length
+				//Write the variable names across the top.
+				variablesArray.each {
+					currentVar ->
+					String printableHeading = currentVar
+					buf.append("<th>${printableHeading}</th>")
+				}
+				//Close header row.
+				buf.append("</tr>")
+			} else {
+				String[] strArray = it.split(";");
+				buf.append("<tr>");
+				int rowColumn = 0;
+				strArray.each {
+					currentValue ->
+					//add currentValue to the table
+					buf.append("<td>${currentValue}</td>")
+					rowColumn++
+					}
+				//add empty columns depending on tableheader
+				while (rowColumn < columns) {
+				buf.append("<td></td>")
+				rowColumn++
+				}
+				//Close header row.
+				buf.append("</tr>");
+			}
+			lineCounter+=1
+		}
+		buf.append("</table>");
+		return buf.toString();
 	}
 
 }

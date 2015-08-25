@@ -18,7 +18,7 @@
         <fieldset class="inputFields">
             %{--High dimensional input--}%
             <div class="highDimContainer">
-                <span>Drag two or more <b>numerical</b> concepts from the tree into the box below that you wish to generate correlation statistics on.</span>
+                <span>Drag <b>numerical</b> concepts from the tree into the box below that you wish to generate outlier statistics on.</span>
                 <div id='divVariables' class="queryGroupIncludeSmall highDimBox"></div>
                 <div class="highDimBtns">
                     <button type="button" onclick="sysinflameOutlierView.clear_high_dimensional_input('divVariables')">Clear</button>
