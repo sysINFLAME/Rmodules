@@ -1,5 +1,5 @@
 ######
-#R- Code zur Erkennung von Ausreiﬂern zur Implementierung in TranSMART
+#R- Code zur Erkennung von Ausreissern zur Implementierung in TranSMART
 #
 #Carolin Knecht (2015)
 #
@@ -12,11 +12,11 @@ Extremwerte.loader <- function(
   output.name="Extremwerte"
 )
 {
-#benˆtigte Pakete
+#benoetigte Pakete
 library(Cairo)
 library(gridExtra)
 library(outliers) 
-library(calibrate)
+#library(calibrate)
 #Daten werten eingelesen
 input<-read.delim(input.filename,header=T)
 
@@ -33,7 +33,7 @@ Sample <- input[,1]
 Eingabe <- data.frame(Sample,Werte)
 Anzahl <- length(Werte)
 
-#Je nachdem wieviele Werte vorliegen, werden unterschiedliche Tests durchgef¸hrt
+#Je nachdem wieviele Werte vorliegen, werden unterschiedliche Tests durchgefuehrt
 if(Anzahl<3)
 {  Methode <- "Nicht_sinnvoll"}
 if(Anzahl>=3 && Anzahl <= 8)
@@ -47,17 +47,17 @@ if(Anzahl>=25)
 switch(Methode, 
        Grubbs={
          pWert <-0
-         #In jedem Durchlauf werden die Ausreiﬂer rausgeschmissen, bis keine mehr drin sind
+         #In jedem Durchlauf werden die Ausreisser rausgeschmissen, bis keine mehr drin sind
          while(pWert<=0.05 && sum(sortiert)!=0 )
          {  
            GrubbsTest <- grubbs.test(sortiert)
            pWert <- GrubbsTest$p.value
            if(pWert<=0.05&& sum(sortiert)!=0)
            {
-             GrubbsTest.Ausreiﬂer <- GrubbsTest$alternative
-             Wert <- strsplit(GrubbsTest.Ausreiﬂer," ")[[1]]
-             Ausreiﬂer <- Wert[3]
-             sortiert <- sortiert[!sortiert==as.numeric(Ausreiﬂer)] 
+             GrubbsTest.Ausreisser <- GrubbsTest$alternative
+             Wert <- strsplit(GrubbsTest.Ausreisser," ")[[1]]
+             Ausreisser <- Wert[3]
+             sortiert <- sortiert[!sortiert==as.numeric(Ausreisser)] 
              }
             }
          if(sum(sortiert)==0)
@@ -79,10 +79,10 @@ switch(Methode,
            i <- i+1
            if(pWert<=0.05  && sum(sortiert)!=0 )
            {
-             DixonTest.Ausreiﬂer <- DixonTest$alternative
-             Wert <- strsplit(DixonTest.Ausreiﬂer," ")[[1]]
-             Ausreiﬂer <- Wert[3]
-             sortiert <- sortiert[!sortiert==as.numeric(Ausreiﬂer)] 
+             DixonTest.Ausreisser <- DixonTest$alternative
+             Wert <- strsplit(DixonTest.Ausreisser," ")[[1]]
+             Ausreisser <- Wert[3]
+             sortiert <- sortiert[!sortiert==as.numeric(Ausreisser)] 
            }
            
          }
@@ -97,9 +97,9 @@ switch(Methode,
        Standard_Extemwerte={
          Median <- median(sortiert)
          Median.Deviation <- mad(sortiert,constant=1)
-         Ausreiﬂer <- (sortiert < Median - 5.2*Median.Deviation) | (sortiert > Median + 5.2*Median.Deviation)
-         Ausreiﬂer2 <- sortiert[Ausreiﬂer]
-         sortiert <- sortiert[!sortiert==as.numeric(Ausreiﬂer2)] 
+         Ausreisser <- (sortiert < Median - 5.2*Median.Deviation) | (sortiert > Median + 5.2*Median.Deviation)
+         Ausreisser2 <- sortiert[Ausreisser]
+         sortiert <- sortiert[!sortiert==as.numeric(Ausreisser2)] 
          Methode <- "Standardisierte Extremwertabweichung"
          if(sum(sortiert)==0)
          {
@@ -111,14 +111,14 @@ switch(Methode,
          },
        Nicht_sinnvoll={
          Methode <- "Keine Anwendung"
-         Bemerkung <-"Keine sinnvolle Auswertung mˆglich"
+         Bemerkung <-"Keine sinnvolle Auswertung moeglich"
        },
        {
         Median <- median(sortiert)
         Median.Deviation <- mad(sortiert,constant=1)
-        Ausreiﬂer <- (sortiert < Median - 5.2*Median.Deviation) | (sortiert > Median + 5.2*Median.Deviation)
-        Ausreiﬂer2 <- sortiert[Ausreiﬂer]
-        sortiert <- sortiert[!sortiert==as.numeric(Ausreiﬂer2)] 
+        Ausreisser <- (sortiert < Median - 5.2*Median.Deviation) | (sortiert > Median + 5.2*Median.Deviation)
+        Ausreisser2 <- sortiert[Ausreisser]
+        sortiert <- sortiert[!sortiert==as.numeric(Ausreisser2)] 
         Methode <- "Standardisierte Extremwertabweichung"
         if(sum(sortiert)==0)
         {
@@ -162,7 +162,7 @@ n <- 1.05
 p <- (range(Werte)[2]-range(Werte)[1])/15
 for(i in 1:length(extremwerte))
 {
-textxy(extremwerte[i]-p, n,Sampleplot[i], cx=0.8)
+#textxy(extremwerte[i]-p, n,Sampleplot[i], cx=0.8)
 n <- n-0.05
 }
 dev.off()
