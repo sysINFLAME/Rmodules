@@ -31,8 +31,8 @@ class SysinflameOutlier extends AbstractAnalysisJob {
 	@Autowired
 	SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
-    @Autowired
-    MultiNumericClinicalVariableColumnConfigurator columnConfigurator
+	@Autowired
+	MultiNumericClinicalVariableColumnConfigurator columnConfigurator
 
 	@Autowired
 	Table table
@@ -65,9 +65,9 @@ class SysinflameOutlier extends AbstractAnalysisJob {
 		steps << new SysinflameSimpleDumpTableResultStep(
 				table: table,
 				temporaryDirectory: temporaryDirectory,
-//				groupNamesHolder:   holder,
+				//				groupNamesHolder:   holder,
 				outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-				println "TABLE HEADER " + table.getHeaders().toString();
+		println "TABLE HEADER " + table.getHeaders().toString();
 		steps << new RCommandsStep(
 				temporaryDirectory: temporaryDirectory,
 				scriptsDirectory: scriptsDirectory,
