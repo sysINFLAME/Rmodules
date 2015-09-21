@@ -88,7 +88,7 @@ class RModulesController {
         if (jobResultsService[params.jobName] == null) {
             throw new IllegalStateException('Cannot schedule job; it has not been created')
         }
-
+log.info('SWITCH' + params['analysis'])
         switch (params['analysis']) {
             case 'heatmap':
                 jsonResult = createJob(params, Heatmap)
@@ -147,6 +147,15 @@ class RModulesController {
             case 'groupTestRNASeq':
                 jsonResult = createJob(params, RNASeqGroupTest)
                 break
+            case 'phenomap':
+                jsonResult = createJob(params, Phenomap, false)
+                break
+            case 'sysinflameDiversity':
+                jsonResult = createJob(params, SysinflameDiversity, false)
+                break
+			case 'sysinflameOutlier':
+				jsonResult = createJob(params, SysinflameOutlier, false)
+				break
             default:
                 jsonResult = RModulesService.scheduleJob(
                         springSecurityService.principal.username, params)
