@@ -20,7 +20,6 @@ library(calibrate)
 #Daten werten eingelesen
 input<-read.delim(input.filename,header=T)
 
-
 Spalten <- dim(input)[2]
 #Spaltenname #Extremwerte #Methode #Bemerkung
 Ausgabe <- data.frame(Item="",Samples="",Extreme_Values="",Method="",Remark="")
@@ -28,10 +27,31 @@ Ausgabe <- data.frame(Item="",Samples="",Extreme_Values="",Method="",Remark="")
 for(l in 2:Spalten)
 {  
 Werte <- input[,l]
+welche.NA <- which(is.na(Werte))
+
+if(length(welche.NA)!=0)
+{
+Werte<-Werte[-welche.NA]
+}
+
+if(length(Werte)<length(welche.NA))
+{
+  Kommentar <- "More entries with NA than without!"
+}else
+{
+  Kommentar <- ""
+}
 sortiert <- sort(Werte)
 Sample <- input[,1]
+if(length(welche.NA)!=0)
+{
+  Sample<-Sample[-welche.NA]
+}
+
 Eingabe <- data.frame(Sample,Werte)
 Anzahl <- length(Werte)
+
+
 
 #Je nachdem wieviele Werte vorliegen, werden unterschiedliche Tests durchgefuehrt
 if(Anzahl<3)
@@ -130,6 +150,9 @@ switch(Method,
        }
 )
 
+
+Remark <- paste(Kommentar,Remark, collapse=",")
+
 #Extremwerte werden bestimmt
 welche.extremwerte <- which(is.element(Werte,sortiert))
 extremwerte<-Werte[-welche.extremwerte]
@@ -143,7 +166,7 @@ if(laenge==0)
 }
 
 Item <-colnames(input[l])
-Patienten <- 1:17
+
 
 #Hier kommt der Plotaufruf
 if(laenge!=0)
@@ -185,7 +208,17 @@ Ausgabe <- Ausgabe[-1,]
 rownames(Ausgabe) <- Ausgabe$Item
 write.table(Ausgabe,file="Ausgabe.csv", sep=";", dec=",", row.names=F,quote=F)
 Ausgabe <- Ausgabe[,-1]
+
+if(length(Spalten)>5)
+{
 pdf("Ausgabe.pdf", 10,Spalten-4)
 grid.table(Ausgabe)
 dev.off()
+}else{
+  pdf("Ausgabe.pdf", 10,Spalten)
+  grid.table(Ausgabe)
+  dev.off()
 }
+}
+
+
