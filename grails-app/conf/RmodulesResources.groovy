@@ -1,6 +1,15 @@
 modules = {
     // plugin needs to be declared when rmodules is used inline
     // see GPRESOURCES-176
+	sysinflameDiversity {
+	        resource url: [plugin: 'rdc-rmodules', dir: 'js/plugin', file: 'SysinflameDiversity.js']
+	    }
+	sysinflameOutlier {
+		resource url: [plugin: 'rdc-rmodules', dir: 'js/plugin', file: 'SysinflameOutlier.js']
+	}
+    phenomap {
+		resource url: [plugin: 'rdc-rmodules', dir: 'js/plugin', file: 'Phenomap.js']
+    }
     heatmap {
         resource url: [plugin: 'rdc-rmodules', dir: 'js/plugin', file: 'Heatmap.js']
     }
