@@ -78,12 +78,12 @@ grails.project.dependency.resolution = {
 
     plugins {
         build(':release:3.0.1',
-              ':rest-client-builder:1.0.3') { export = false }
+              ':rest-client-builder:2.1.1') { export = false }
 
         compile ':sendfile:0.2'
         compile ':quartz:1.0-RC2'
 
-        runtime ':resources:1.2.1'
+        runtime ':resources:1.2.8'
 
         // support for static code analysis
         compile ":codenarc:0.21"
