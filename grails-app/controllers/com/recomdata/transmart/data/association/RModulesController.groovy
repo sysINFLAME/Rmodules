@@ -48,6 +48,8 @@ class RModulesController {
             "VCF":		"vcf"
     ]
 
+    private static final String PARAM_ANALYSIS_CONSTRAINTS = 'analysisConstraints'
+
     def springSecurityService
     def asyncJobService
     def currentUserBean
@@ -146,6 +148,15 @@ class RModulesController {
             case 'groupTestRNASeq':
                 jsonResult = createJob(params, RNASeqGroupTest)
                 break
+            case 'phenomap':
+                jsonResult = createJob(params, Phenomap, false)
+                break
+            case 'sysinflameDiversity':
+                jsonResult = createJob(params, SysinflameDiversity, false)
+                break
+			case 'sysinflameOutlier':
+				jsonResult = createJob(params, SysinflameOutlier, false)
+				break
             default:
                 jsonResult = RModulesService.scheduleJob(
                         springSecurityService.principal.username, params)

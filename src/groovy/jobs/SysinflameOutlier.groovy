@@ -21,7 +21,7 @@ import javax.annotation.PostConstruct
 
 import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 /**
- *@Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de> 
+ *@Author Benjamin Baum, Department of Medical Informatics, Gï¿½ttingen, <benjamin.baum@med.uni-goettingen.de> 
  */
 @Component
 @Scope('job')
@@ -31,8 +31,8 @@ class SysinflameOutlier extends AbstractAnalysisJob {
 	@Autowired
 	SimpleAddColumnConfigurator primaryKeyColumnConfigurator
 
-    @Autowired
-    MultiNumericClinicalVariableColumnConfigurator columnConfigurator
+	@Autowired
+	MultiNumericClinicalVariableColumnConfigurator columnConfigurator
 
 	@Autowired
 	Table table
@@ -65,9 +65,9 @@ class SysinflameOutlier extends AbstractAnalysisJob {
 		steps << new SysinflameSimpleDumpTableResultStep(
 				table: table,
 				temporaryDirectory: temporaryDirectory,
-//				groupNamesHolder:   holder,
+				//				groupNamesHolder:   holder,
 				outputFileName: DEFAULT_OUTPUT_FILE_NAME)
-				println "TABLE HEADER " + table.getHeaders().toString();
+		println "TABLE HEADER " + table.getHeaders().toString();
 		steps << new RCommandsStep(
 				temporaryDirectory: temporaryDirectory,
 				scriptsDirectory: scriptsDirectory,

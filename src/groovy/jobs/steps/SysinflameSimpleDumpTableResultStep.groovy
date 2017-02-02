@@ -72,12 +72,16 @@ class SysinflameSimpleDumpTableResultStep extends AbstractDumpStep {
 				patients.add(patID)
 			Map<String, Object> arrayMap = inputArray.get(1)
 			arrayMap.each {
-
-				if (!header.contains(it.key))
-					header.add(it.key)
+				String toAdd = it.key;
+				while (toAdd.startsWith("\\"))
+					toAdd = toAdd.substring(1)
+				while (toAdd.endsWith("\\"))
+					toAdd = toAdd.substring(0, toAdd.length()-1)
+				if (!header.contains(toAdd))
+					header.add(toAdd)
 
 				HashMap<String, Object> tmp = new HashMap<String, Object>()
-				tmp.put(it.key,it.value)
+				tmp.put(toAdd,it.value)
 				if (newMap.containsKey(patID)){
 					newMap.get(patID).add(tmp)
 				}

@@ -16,35 +16,55 @@ Extremwerte.loader <- function(
 library(Cairo)
 library(gridExtra)
 library(outliers) 
-#library(calibrate)
+library(calibrate)
 #Daten werten eingelesen
 input<-read.delim(input.filename,header=T)
 
-
 Spalten <- dim(input)[2]
-
-Ausgabe <- data.frame(Spaltenname="",Samples="",Extremwerte="",Methode="",Bemerkung="")
+#Spaltenname #Extremwerte #Methode #Bemerkung
+Ausgabe <- data.frame(Item="",Samples="",Extreme_Values="",Method="",Remark="")
 
 for(l in 2:Spalten)
 {  
 Werte <- input[,l]
+welche.NA <- which(is.na(Werte))
+
+if(length(welche.NA)!=0)
+{
+Werte<-Werte[-welche.NA]
+}
+
+if(length(Werte)<length(welche.NA))
+{
+  Kommentar <- "More entries with NA than without!"
+}else
+{
+  Kommentar <- ""
+}
 sortiert <- sort(Werte)
 Sample <- input[,1]
+if(length(welche.NA)!=0)
+{
+  Sample<-Sample[-welche.NA]
+}
+
 Eingabe <- data.frame(Sample,Werte)
 Anzahl <- length(Werte)
 
+
+
 #Je nachdem wieviele Werte vorliegen, werden unterschiedliche Tests durchgefuehrt
 if(Anzahl<3)
-{  Methode <- "Nicht_sinnvoll"}
+{  Method <- "Nicht_sinnvoll"}
 if(Anzahl>=3 && Anzahl <= 8)
-{  Methode <- "Dixon"}
+{  Method <- "Dixon"}
 if(Anzahl>8 && Anzahl <= 25)
-{  Methode <- "Grubbs"}
+{  Method <- "Grubbs"}
 if(Anzahl>=25)
-{ Methode <- "Standard_Extemwerte"}
+{ Method <- "Standard_Extemwerte"}
 
 
-switch(Methode, 
+switch(Method, 
        Grubbs={
          pWert <-0
          #In jedem Durchlauf werden die Ausreisser rausgeschmissen, bis keine mehr drin sind
@@ -62,10 +82,10 @@ switch(Methode,
             }
          if(sum(sortiert)==0)
          {
-           Bemerkung <- "Achtung, nur noch Nullen in den Daten!" 
+           Remark <- "Only Zeros left!" ###"Achtung, nur noch Nullen in den Daten!" 
          } else
          {
-           Bemerkung <-""
+           Remark <-""
          }
        },
       	
@@ -88,10 +108,10 @@ switch(Methode,
          }
          if(sum(sortiert)==0)
          {
-           Bemerkung <- "Achtung, nur noch Nullen in den Daten!" 
+           Remark <- "Only Zeros left!" ###"Achtung, nur noch Nullen in den Daten!" 
          }         else
          {
-           Bemerkung <-""
+           Remark <-""
          }
        },
        Standard_Extemwerte={
@@ -100,18 +120,18 @@ switch(Methode,
          Ausreisser <- (sortiert < Median - 5.2*Median.Deviation) | (sortiert > Median + 5.2*Median.Deviation)
          Ausreisser2 <- sortiert[Ausreisser]
          sortiert <- sortiert[!sortiert==as.numeric(Ausreisser2)] 
-         Methode <- "Standardisierte Extremwertabweichung"
+         Method <- "Standardized extreme value deviation" ###"Standardisierte Extremwertabweichung"
          if(sum(sortiert)==0)
          {
-           Bemerkung <- "Achtung, nur noch Nullen in den Daten!" 
+           Remark <- "Only Zeros left!" ###"Achtung, nur noch Nullen in den Daten!" 
          }         else
          {
-           Bemerkung <-""
+           Remark <-""
          }
          },
        Nicht_sinnvoll={
-         Methode <- "Keine Anwendung"
-         Bemerkung <-"Keine sinnvolle Auswertung moeglich"
+         Method <- "Not applicable" ###"Keine Anwendung"
+         Remark <- "No senseful analysis possible" ###"Keine sinnvolle Auswertung moeglich"
        },
        {
         Median <- median(sortiert)
@@ -119,31 +139,34 @@ switch(Methode,
         Ausreisser <- (sortiert < Median - 5.2*Median.Deviation) | (sortiert > Median + 5.2*Median.Deviation)
         Ausreisser2 <- sortiert[Ausreisser]
         sortiert <- sortiert[!sortiert==as.numeric(Ausreisser2)] 
-        Methode <- "Standardisierte Extremwertabweichung"
+        Method <- "Standardized extreme value deviation" ###"Standardisierte Extremwertabweichung"
         if(sum(sortiert)==0)
         {
-          Bemerkung <- "Achtung, nur noch Nullen in den Daten!" 
+          Remark <- "Only Zeros left!" ###"Achtung, nur noch Nullen in den Daten!" 
         }        else
         {
-          Bemerkung <-""
+          Remark <-""
         }
        }
 )
+
+
+Remark <- paste(Kommentar,Remark, collapse=",")
 
 #Extremwerte werden bestimmt
 welche.extremwerte <- which(is.element(Werte,sortiert))
 extremwerte<-Werte[-welche.extremwerte]
 
-Extremwerte<- paste(extremwerte,collapse=",")
+Extreme_Values<- paste(extremwerte,collapse=",")
 laenge <- length(extremwerte)
 
 if(laenge==0)
 {
-  Extremwerte = "Keine Ausreisser"
+  Extreme_Values = "No Outlier" ###"Keine Ausreisser"
 }
 
-Spaltenname <-colnames(input[l])
-Patienten <- 1:17
+Item <-colnames(input[l])
+
 
 #Hier kommt der Plotaufruf
 if(laenge!=0)
@@ -152,17 +175,17 @@ Samples <- Eingabe[Eingabe$Werte  %in% extremwerte,c("Sample")]
 Samples <- paste(Samples,collapse=",")
 Sampleplot <-Eingabe[Eingabe$Werte  %in% extremwerte,c("Sample")] 
 
-CairoPNG(file=paste("Bild",Spaltenname,".png",sep=""), width=800, height=400,units = "px")  
+CairoPNG(file=paste("Bild",Item,".png",sep=""), width=800, height=400,units = "px")  
 welche.Werte_ohneExtrem <- which(is.element(Werte,extremwerte))
 Werte_ohneExtrem<-Werte[-welche.Werte_ohneExtrem]
-stripchart(Werte,cex=2 ,pch=16,col="white",method="jitter", xlab=Spaltenname, cex.lab=1.5)
+stripchart(Werte,cex=2 ,pch=16,col="white",method="jitter", xlab=Item, cex.lab=1.5)
 stripchart(Werte_ohneExtrem,cex=2 ,pch=16,col="steelblue",method="jitter", add=T)
 stripchart(extremwerte, cex=2, pch=16,method="stack", col="darkred", add=T)
 n <- 1.05
 p <- (range(Werte)[2]-range(Werte)[1])/15
 for(i in 1:length(extremwerte))
 {
-#textxy(extremwerte[i]-p, n,Sampleplot[i], cx=0.8)
+textxy(extremwerte[i]-p, n,Sampleplot[i], cx=0.8)
 n <- n-0.05
 }
 dev.off()
@@ -170,22 +193,32 @@ dev.off()
 } else 
 {
   Samples <- ""
-  CairoPNG(file=paste("Bild",Spaltenname,".png",sep=""), width=800, height=400,units = "px")  
-  stripchart(Werte,cex=2 ,pch=16,col="steelblue",method="jitter", xlab=Spaltenname, cex.lab=1.5)
+  CairoPNG(file=paste("Bild",Item,".png",sep=""), width=800, height=400,units = "px")  
+  stripchart(Werte,cex=2 ,pch=16,col="steelblue",method="jitter", xlab=Item, cex.lab=1.5)
   dev.off()
 }
 
 
 
-Ausgabe_einzel <- data.frame(Spaltenname,Samples,Extremwerte,Methode,Bemerkung)
+Ausgabe_einzel <- data.frame(Item,Samples,Extreme_Values,Method,Remark)
 Ausgabe <- rbind(Ausgabe,Ausgabe_einzel)
 #Hier wird das ganze Ausgegeben
 }
 Ausgabe <- Ausgabe[-1,]
-rownames(Ausgabe) <- Ausgabe$Spaltenname
+rownames(Ausgabe) <- Ausgabe$Item
 write.table(Ausgabe,file="Ausgabe.csv", sep=";", dec=",", row.names=F,quote=F)
 Ausgabe <- Ausgabe[,-1]
+
+if(length(Spalten)>5)
+{
 pdf("Ausgabe.pdf", 10,Spalten-4)
 grid.table(Ausgabe)
 dev.off()
+}else{
+  pdf("Ausgabe.pdf", 10,Spalten)
+  grid.table(Ausgabe)
+  dev.off()
 }
+}
+
+
