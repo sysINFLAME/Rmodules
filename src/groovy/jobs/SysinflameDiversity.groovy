@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct
 
 import static jobs.steps.AbstractDumpStep.DEFAULT_OUTPUT_FILE_NAME
 /**
- *@Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de> 
+ *@Author Benjamin Baum, Department of Medical Informatics, Gï¿½ttingen, <benjamin.baum@med.uni-goettingen.de> 
  */
 @Component
 @Scope('job')
@@ -89,7 +89,7 @@ class SysinflameDiversity extends AbstractAnalysisJob {
 	@Override
 	protected List<String> getRStatements() {
 		[
-			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader_MR.R')''',
+			'''source('$pluginDirectory/Sysinflame/Diversity/DiversityLoader.R')''',
 			'''Diversity.loader(
              input.filename = '$inputFileName',
 			 input.mode = '$chkGroupIndex'

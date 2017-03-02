@@ -117,7 +117,8 @@ function loadAnalysisPage(itemId, isCompletedJob, jobName) {
 
             // insert response into 'variableSelection' html element
             $j('#variableSelection').html(response);
-
+            console.log("itemId!!: " + itemId);
+            Ext.Msg.alert('Subsets are empty!', 'All subsets are empty. Please select subsets.');
             // load the plugin view
             loadPluginView(itemId);
 
@@ -226,6 +227,7 @@ function loadPluginView(){
 
         var selectedAnalysis = document.getElementById("analysis").value;
     selectedAnalysis = selectedAnalysis.charAt(0).toUpperCase()+selectedAnalysis.substring(1);
+    console.log(selectedAnalysis);
     eval("load"+selectedAnalysis+"View()");
 
 }
@@ -301,6 +303,7 @@ function dropNumericOntoCategorySelection2(source, e, data, targetdiv)
         //If no leaf nodes found, alert the user.
         if(!foundLeafNode)
         {
+            console.log("test")
             Ext.Msg.alert('No Nodes in Folder','When dragging in a folder you must select a folder that has leaf nodes directly under it.');
         }
 

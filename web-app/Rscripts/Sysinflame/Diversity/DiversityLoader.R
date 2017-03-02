@@ -1,10 +1,17 @@
-##@Author Carolin Knecht, Institut für Medizinische Informatik und Statistik, Universitätsklinikum Schleswig-Holstein Kiel
-##@Author Benjamin Baum, Department of Medical Informatics, Göttingen, <benjamin.baum@med.uni-goettingen.de>
-##@Author Malte Rühlemann, Institute of Clinical Molecular Biology, Christian-Albrechts-University Kiel
+##@Author Carolin Knecht, Institut fÃ¼r Medizinische Informatik und Statistik, UniversitÃ¤tsklinikum Schleswig-Holstein Kiel
+##@Author Benjamin Baum, Department of Medical Informatics, GÃ¶ttingen, <benjamin.baum@med.uni-goettingen.de>
+##@Author Malte RÃ¼hlemann, Institute of Clinical Molecular Biology, Christian-Albrechts-University Kiel
 
 
-## Ohne Wert für Input Mode -> Shannon als Standard; auch wenn input mode nicht in der u.g. liste
-## Alternativen für Input.Mode: "shannon", "simpson", "invsimpson", "chao1", "obs" oder "ACE"
+## Ohne Wert fÃ¼r Input Mode -> Shannon als Standard; auch wenn input mode nicht in der u.g. liste
+## Alternativen fÃ¼r Input.Mode: "shannon", "simpson", "invsimpson", "chao1", "obs" oder "ACE"
+
+# DEV #
+input.filename <- ("C:\\Users\\baum_benjamin\\Desktop\\R\\inputFile.txt")
+input.filename
+input.mode = "shannon"
+setwd("C:\\Users\\baum_benjamin\\Desktop\\R\\")
+# DEV #
 
 Diversity.loader <- function(
   input.filename,
@@ -70,7 +77,7 @@ input<-read.delim(input.filename,header=T)
   
   ##Welcher Diversity Modus soll verwendet werden? Shannon oder Simpson?
   ### Default von "diversity()" ist shannon 
-  #Berechnen des diversity index abhängig von input.mode
+  #Berechnen des diversity index abhÃ¤ngig von input.mode
   
 switch(input.mode, 
 	shannon={
